@@ -34,6 +34,9 @@ fetch(`${BASE_URL}films`)
     reviewForm.addEventListener("submit", (event) => {
       event.preventDefault();
       newFilm = document.createElement("li");
+      if (!selectedFilm) {
+        alert("Please select a movie first");
+      }
       newFilm.innerHTML = `<strong>${selectedFilm.title}:</strong> ${event.target.review.value}`;
       reviewList.append(newFilm);
       event.target.reset();
