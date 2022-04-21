@@ -38,13 +38,18 @@ fetch(`${BASE_URL}films`)
       reviewList.append(newFilm);
       event.target.reset();
     });
+
+    const resetReviews = document.getElementById("reset-reviews");
+
+    resetReviews.addEventListener("click", (event) => {
+      event.preventDefault();
+      reviewList.remove();
+    });
   });
 
 fetch(`${BASE_URL}people`)
   .then((response) => response.json())
-    .then((people) => {
-      console.log(people)
-  })
+  .then((people) => {})
 
   .catch((error) => {
     console.log(error);
