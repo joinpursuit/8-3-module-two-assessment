@@ -1,5 +1,10 @@
-.body {
-    background-color: rgb(230, 230, 250);
+body {
+    background-color: lavender;
     font-family: monospace;
+}
 
+header {
+    width: 75%;
+    background-color: skyblue;
+    
 }

@@ -6,21 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer src="Ghibli.js"></script>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="mystyle.css"/>
 </head>
 <body>
     <header>
-        <img src= "" alt="Ghibli logo">
+        <img src= "./images/ghibli-logo.png
+        " alt="Ghibli logo">
         <h1>Ghibli Review App</h1>
     </header>
     <main>
         <section>
-            <h2>Select amovie</h2>
-
+            <h2>Select a movie</h2>
+            <select id="select">      
+                <option></option>          
+            </select>
         </section>
         <section>
             <h2>Add a review</h2>
-            <form type="submit">
+            Your review:
+            <form>
                 <label for="review"></label>
                 <input id="review" type="text"/>
                 <input type="submit"/>
@@ -28,8 +32,10 @@
         </section>
         <section> 
             <h2>Movie details</h2>
-            <div>
-                
+            <div id= "display-info">
+                <h3></h3>
+                <p></p>
+                <p></p>
             </div>
         </section>
         <section>
@@ -37,11 +43,14 @@
             <ol>
 
             </ol>
+            <button>
+                <input id= show-poeple type="text"/>
+            </button>
         </section>
         <section>
             <h2>Reviews</h2>
             <ul>
-                
+
             </ul>
 
         </section>
