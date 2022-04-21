@@ -10,26 +10,26 @@
 </head>
 <body>
     <header>
-        <img src="./images/ghibli-logo.png" alt="Display Image">
+        <img src="./images/ghibli-logo.png" alt="Ghibli logo">
         <h1>Ghibli Review App</h1>
     </header>
     <main>
         <section>
-            <h2>Select a Movie</h2>
+            <h2>Select a movie</h2>
             <select name="selected-movie">
                 <option value=""></option>
             </select>
         </section>
         <section>
-            <h2>Add a Review</h2>
+            <h2>Add a review</h2>
             <form>
-                <label for="review-text-field"></label>
-                <input type="text" name="review-text-field">
+                <label for="review"></label>
+                <input type="text" id="review" name="review">
                 <input type="submit">
             </form>
         </section>
         <section>
-            <h2>Movie Details</h2>
+            <h2>Movie details</h2>
             <div id="display-info"></div>
         </section>
         <section>
@@ -40,7 +40,7 @@
         <section>
             <h2>Reviews</h2>
             <ul></ul>
-            <input type="submit" id="reset-reviews" value="Reset Reviews">
+            <button type="submit" id="reset-reviews">Reset Reviews</button>
         </section>
     </main>
 </body>
