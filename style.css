@@ -31,5 +31,5 @@ main {
 }
 
 select {
-    width: 25%;
+    width: fit-content;
 }
