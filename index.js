@@ -60,17 +60,26 @@ function filmsDropdown(res) {
   });
 }
 
+// Event Listeners
+
+// Event listener for the Review Submission Form
 const filmReviewForm = document.querySelector("main section form");
 filmReviewForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   let review = event.target.review.value;
-  console.log(selectedMovie);
-
   const reviewsSection = document.querySelector("section ul");
 
   const movieReview = document.createElement("li");
   movieReview.innerHTML = `<strong>${selectedMovie}:</strong> ${review}`;
-
   reviewsSection.append(movieReview);
+
+  event.target.review.value = "";
+});
+
+// Event Listener for Review Reset Button
+const resetReviewsButton = document.getElementById("reset-reviews");
+resetReviewsButton.addEventListener("click", (event) => {
+  const reviews = document.querySelector("ul");
+  reviews.innerHTML = "";
 });
