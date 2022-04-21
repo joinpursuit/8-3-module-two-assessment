@@ -12,17 +12,32 @@ function displayError(error) {
 }
 
 function populateFilmsDropdown(res) {
-  let filmTitles = res.map((filmObject) => {
-    return filmObject.title;
+  const dropdown = document.querySelector("select");
+
+  res.forEach((filmObject) => {
+    const dropdownOption = document.createElement("option");
+    dropdownOption.innerText = filmObject.title;
+    dropdownOption.value = filmObject.id;
+
+    dropdown.append(dropdownOption);
   });
 
-  console.log(filmTitles);
+  const yearAndDescription = document.createElement("p");
+  const selectMovieSection = document.querySelectorAll("section")[0];
+  selectMovieSection.append(yearAndDescription);
 
-  filmTitles.forEach((title) => {
-    const dropdownOption = document.createElement("option");
-    dropdownOption.innerText = title;
-    dropdownOption.value = title.replaceAll(" ", "-");
-    const dropdown = document.querySelector("select");
-    dropdown.append(dropdownOption);
+  dropdown.addEventListener("change", (event) => {
+    let selectedMovie = event.target.value;
+    if (!selectedMovie) {
+      return;
+    } else {
+      res.forEach((movieObj) => {
+        if (movieObj.id === selectedMovie) {
+          yearAndDescription.innerText = "";
+
+          yearAndDescription.innerText = `${movieObj.release_date}${movieObj.description}`;
+        }
+      });
+    }
   });
 }
