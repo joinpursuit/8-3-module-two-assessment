@@ -36,7 +36,12 @@ function generateWebPage(
       return moviesData;
     })
     .then((moviesData) => {
-      generateMovieDescription(moviesData, selectMenu, movieDetails);
+      generateMovieDescription(
+        moviesData,
+        selectMenu,
+        movieDetails,
+        displayPeople
+      );
       addResetReviewsButton(resetReviewsButton, displayReviews);
       generateReviews(
         moviesData,
@@ -79,10 +84,16 @@ function generateSelectMenu(moviesData, selectMenu) {
 }
 
 //generate movie description
-function generateMovieDescription(moviesData, selectMenu, movieDetails) {
+function generateMovieDescription(
+  moviesData,
+  selectMenu,
+  movieDetails,
+  displayPeople
+) {
   selectMenu.addEventListener("change", (event) => {
     event.preventDefault();
     movieDetails.innerHTML = "";
+    displayPeople.innerHTML = "";
     let title = document.createElement("h3");
     let release_year = document.createElement("p");
     let description = document.createElement("p");

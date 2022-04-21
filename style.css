@@ -10,5 +10,19 @@ header{
 }
 
 img{
-    height:150px;
+    height:100px;
+}
+
+h1{
+    text-align: right;
+    font-size: 32px;
+    margin-top: 0px;
+}
+
+main{
+    margin-left: 200px;
+}
+
+#display-info{
+    width:80%;
 }
