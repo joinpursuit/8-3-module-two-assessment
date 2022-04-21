@@ -1,0 +1,21 @@
+body {
+    background-color: lavender;
+    font-family: monospace;
+}
+
+img {
+    width: 27%;
+    background: url('./images/ghibli-logo.png');
+}
+header {
+    background-color: skyblue;
+    font-family: monospace;
+    width: 75%;
+}
+
+h1 {
+    text-align: right;
+}
+main {
+
+}
