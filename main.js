@@ -6,6 +6,7 @@ let h3 = document.querySelector('h3')
 let p = document.querySelectorAll('p')
 let form = document.querySelector('form')
 let text = document.querySelector("input[type ='text']")
+let ul = document.querySelector('ul')
 
 let Base_Url = 'https://ghibliapi.herokuapp.com/'
 let film = 'films'
@@ -59,3 +60,22 @@ fetch(`${Base_Url}${film}`)
     selectMovieTitle(json), description(json)
   })
   .catch((error) => console.log(error))
+
+// when submit a form accourding the the select title
+// it show the title and the text
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    let li = document.createElement('li')
+    ul.append(li)
+  
+    li.innerHTML = `<b>${h3.textContent}:</b> ${text.value}`
+    
+    form.reset();
+})
+
+// form submit when submit the text
+// need ul append to li
+// how to know that its the movie its talking about? if select === 
+//
