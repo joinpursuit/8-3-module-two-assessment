@@ -44,8 +44,10 @@ selectedFilmInfo = (filmObj) => {
   let displayInfo = document.getElementById("display-info");
   select.addEventListener("change", (event) => {
     event.preventDefault();
-    displayInfo.textContent = "";
     let film = filmObj.find(({ id }) => id === event.target.value);
+    displayInfo.textContent = "";
+    listOfNames = document.querySelector("section ol");
+    listOfNames.textContent = "";
     let title = document.createElement("h3");
     title.textContent = film.title;
     let year = document.createElement("p");
@@ -53,5 +55,17 @@ selectedFilmInfo = (filmObj) => {
     let info = document.createElement("p");
     info.textContent = film.description;
     displayInfo.append(title, year, info);
+    arrayOfPeopleURLs = film.people;
+    fetch(`https://ghibliapi.herokuapp.com/people`)
+      .then((res) => res.json())
+      .then((people) => {
+        people.forEach((person) => {
+          if (person.films[0].includes(film.id)) {
+            newName = document.createElement("li");
+            newName.textContent = person.name;
+            listOfNames.append(newName);
+          }
+        });
+      });
   });
 };
