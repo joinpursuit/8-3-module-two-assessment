@@ -1,8 +1,16 @@
 body {
     background-color: lavender;
     font-family: monospace;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 header {
-    width: 75%;
     background-color: skyblue;
+}
+img {
+    width: 250px;
+    height: 150px;
+}
+header h1 {
+    float: right;
 }
