@@ -70,9 +70,12 @@ showPeopleButton.addEventListener("click", (event) => {
 	}
 	obj.find((item) => item.id === dropdown.value).people.forEach((person) => {
 		let listItem = document.createElement("li");
-		listItem.textContent = fetch(person)
+		fetch(person)
 			.then((response) => response.json())
-			.then((obj) => obj.name);
-		document.querySelector("#people").append(listItem);
+			.then((obj) => obj.name)
+			.finally((returnedValue) => {
+				listItem.textContent = returnedValue;
+				document.querySelector("#people").append(listItem);
+			});
 	});
 });
