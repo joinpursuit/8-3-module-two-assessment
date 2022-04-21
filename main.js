@@ -1,8 +1,16 @@
 const BASE_URL = "https://ghibliapi.herokuapp.com/";
 const selectMenu = document.querySelector("section select");
 const movieDetails = document.getElementById("display-info");
+const userInputReviewForm = document.querySelector("section form");
+const displayReviews = document.querySelector("section ul");
 
-generateWebPage(BASE_URL, selectMenu, movieDetails);
+generateWebPage(
+  BASE_URL,
+  selectMenu,
+  movieDetails,
+  userInputReviewForm,
+  displayReviews
+);
 
 function generateWebPage(BASE_URL, selectMenu, movieDetails) {
   fetch(`${BASE_URL}films`)
@@ -16,12 +24,19 @@ function generateWebPage(BASE_URL, selectMenu, movieDetails) {
     })
     .then((moviesData) => {
       generateMovieDescription(moviesData, selectMenu, movieDetails);
+      generateReviews(
+        moviesData,
+        selectMenu,
+        userInputReviewForm,
+        displayReviews
+      );
     })
     .catch((error) => {
       console.log(error);
     });
 }
 
+//parse the json data
 function parseJsonData(movies) {
   return movies.map((movie) => {
     return {
@@ -61,5 +76,26 @@ function generateMovieDescription(moviesData, selectMenu, movieDetails) {
     });
 
     movieDetails.append(title, release_year, description);
+  });
+}
+
+//generate the user reviews
+function generateReviews(
+  moviesData,
+  selectMenu,
+  userInputReviewForm,
+  displayReviews
+) {
+  userInputReviewForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let userReview = userInputReviewForm.querySelector("#review").value;
+    userInputReviewForm.querySelector("#review").value = "";
+    let movie = moviesData.find((movie) => {
+      return movie.id === selectMenu.value;
+    });
+    let reviewListItem = document.createElement("li");
+    reviewListItem.innerHTML = `<strong>${movie.title}:</strong> ${userReview}`;
+    console.log(displayReviews);
+    displayReviews.append(reviewListItem);
   });
 }
