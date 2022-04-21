@@ -1,0 +1,12 @@
+body {
+    background-color: lavender;
+    font-family: monospace;
+}
+header {
+    max-width: 75%;
+    background-color: skyblue; 
+}
+img {
+    max-width: 50%;
+    max-height: 50%;
+}
