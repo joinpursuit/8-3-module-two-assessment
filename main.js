@@ -1,31 +1,47 @@
 const URL = "https://ghibliapi.herokuapp.com/films";
+let select = document.getElementById("titles");
+let reviewList = document.querySelector("section ul");
 
 fetch(URL)
-  .then((response) => {
-    return response.json();
-  })
+  .then((res) => res.json())
   .then((films) => {
-    console.log(films);
-    populateTitles(films);
-    filmInfoByOptions(films);
+    films.forEach((film) => populateTitles(film));
+    selectedFilmInfo(films);
+
+    let reviewForm = document.querySelector("section form");
+    reviewForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      boldElement = document.createElement("strong");
+      boldElement.textContent =
+        document.querySelector("section div h3").textContent;
+      let newReview = document.createElement("li");
+      newReview.textContent = event.target.review.value;
+      newReview.prepend(boldElement);
+      reviewList.append(newReview);
+      event.target.reset();
+    });
   })
   .catch((error) => {
     console.log(error);
   });
 
-populateTitles = (filmObj) => {
-  const select = document.getElementById("titles");
-  filmObj.forEach((film) => {
-    let option = document.createElement("option");
-    option.textContent = film.title;
-    option.value = film.id;
-    select.append(option);
-  });
+let resetReviews = document.getElementById("reset-reviews");
+resetReviews.addEventListener("click", (e) => {
+  e.preventDefault();
+  while (reviewList.firstChild) {
+    reviewList.removeChild(reviewList.firstChild);
+  }
+});
+
+populateTitles = (film) => {
+  let option = document.createElement("option");
+  option.textContent = film.title;
+  option.value = film.id;
+  select.append(option);
 };
 
-filmInfoByOptions = (filmObj) => {
-  const select = document.getElementById("titles");
-  const displayInfo = document.getElementById("display-info");
+selectedFilmInfo = (filmObj) => {
+  let displayInfo = document.getElementById("display-info");
   select.addEventListener("change", (event) => {
     event.preventDefault();
     displayInfo.textContent = "";
