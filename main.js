@@ -1,12 +1,17 @@
 const BASE_URL = `https://ghibliapi.herokuapp.com`;
 const format = `/films`;
 let id = "";
+const form = document.getElementById("reviewForm");
+const inputReview = document.getElementById("review");
+const selected = document.getElementById("movieTitles");
+const listReviewItem = document.createElement("li");
 
 fetch(`${BASE_URL}${format}/${id}`)
   .then((Response) => Response.json())
   .then((data) => {
     populateSelectBoxWithMovieTitles(data);
     movieDescription(data);
+    getTitle(data);
   })
   .catch((error) => {
     console.log(error);
@@ -49,3 +54,28 @@ function movieDescription(data) {
     }
   });
 }
+
+function getTitle(data) {
+  const selectBox = document.getElementById("movieTitles");
+  selectBox.addEventListener("change", function () {
+    for (let i = 0; i < data.length; i++) {
+      if (this.value === data[i].release_date) {
+        movieTitle = data[i].title;
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          movieTitle = data[i].title;
+          return (listReviewItem.innerHTML = `<strong><b>${movieTitle}:</strong></b> ${inputReview.value}`);
+        });
+      }
+    }
+  });
+}
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const list = document.getElementById("list");
+  const listReviewItem = document.createElement("li");
+  listReviewItem.innerHTML = `<strong><b>${movieTitle}:</strong></b> ${inputReview.value}`;
+  list.append(listReviewItem);
+  form.reset();
+});
