@@ -7,6 +7,8 @@ let p = document.querySelectorAll('p')
 let form = document.querySelector('form')
 let text = document.querySelector("input[type ='text']")
 let ul = document.querySelector('ul')
+let button = document.getElementById('reset-reviews')
+let list = document.querySelectorAll('ul li')
 
 let Base_Url = 'https://ghibliapi.herokuapp.com/'
 let film = 'films'
@@ -75,7 +77,6 @@ form.addEventListener('submit', (event) => {
     form.reset();
 })
 
-// form submit when submit the text
-// need ul append to li
-// how to know that its the movie its talking about? if select === 
-//
+button.addEventListener('click', () => {
+   ul.remove(list)
+} )
