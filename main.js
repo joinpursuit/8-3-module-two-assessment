@@ -3,6 +3,8 @@ const movies = document.querySelector("#titles");
 const selector = document.querySelector(".selector form");
 //const movieDetails = document.querySelector("#display-info");
 const reviewForm = document.querySelector("#review-form form");
+const reviewText = document.querySelector("#review-form input#review");
+const dropdown = document.querySelector("select");
 let obj;
 
 const populateFilms = (file) => {
@@ -37,10 +39,17 @@ selector.addEventListener("change", (event) => {
 });
 
 reviewForm.addEventListener("submit", (event) => {
-	let review = reviewForm.value;
-	reviewForm.value = "";
+	event.preventDefault();
+	if (!dropdown.value) {
+		alert("Please select a movie first");
+		return;
+	}
+	let review = reviewText.value;
+	reviewText.value = "";
 	let reviewList = document.querySelector("#review-list ul");
 	let listItem = document.createElement("li");
-	listItem.textContent = review; //TODO: needs movie title in <strong> as well
+	listItem.innerHTML = `<strong>${
+		obj.find((item) => item.id === dropdown.value).title
+	}</strong> - ${review}`; //TODO: needs movie title in <strong> as well
 	reviewList.append(listItem);
 });
