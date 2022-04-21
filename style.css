@@ -1,0 +1,19 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-;
+}
+
+body {
+  background-color: lavender;
+  font-family: monospace;
+  max-width: 1200px;
+  width: 100%;
+}
+.header {
+  max-width: 900px;
+  width: 100%;
+}
+
