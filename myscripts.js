@@ -86,11 +86,11 @@ form.addEventListener("submit", (event) => {
   ul.append(li);
 
   if (!film.value) {
-    li.innerHTML = "Please select a movie first";
+    alert("Please select a movie first");
   } else {
     li.innerHTML = `<strong> ${film.value}: </strong> ${text.value}`;
+    text.value = "";
   }
-  text.value = "";
 
   //reset button removes list of reviews
   let reset = document.getElementById("reset-reviews");
@@ -100,13 +100,6 @@ form.addEventListener("submit", (event) => {
     li.remove();
   });
 });
-
-// let reset = document.getElementById("reset-reviews");
-// reset.addEventListener("click", (event) => {
-//   event.preventDefault();
-
-//   li.remove();
-// });
 
 fetch("https://ghibliapi.herokuapp.com/films/")
   .then((response) => response.json())
