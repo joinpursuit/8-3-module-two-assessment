@@ -18,13 +18,26 @@ generateWebPage(
   displayPeople
 );
 
+/**
+ * This function will generate the webpage
+ * @param {string} BASE_URL - The url of Ghibli api
+ * @param {<select>} selectMenu  - The dropdown menu displayed all ghibli film's title
+ * @param {<div>} movieDetails - place to show the film's title, released year and description
+ * @param {<form>} userInputReviewForm - place to receive user reviews
+ * @param {<ul>} displayReviews - place to display the user reviews
+ * @param {<button>} resetReviewsButton - button that will empty the user reviews
+ * @param {<button>} showPeopleButton - button that will show the people inside the film
+ * @param {<ol>} displayPeople - place to display the people inside the film
+ */
 function generateWebPage(
   BASE_URL,
   selectMenu,
   movieDetails,
   userInputReviewForm,
   displayReviews,
-  resetReviewsButton
+  resetReviewsButton,
+  showPeopleButton,
+  displayPeople
 ) {
   fetch(`${BASE_URL}films`)
     .then((response) => {
@@ -61,7 +74,13 @@ function generateWebPage(
     });
 }
 
-//parse the json data
+/**
+ * Convert Json data into an array of objects, each object contains film's title, id, release_date
+ * and description
+ * @param {JSON} movies
+ * @returns {[]Object} Returns an array of objects, each object contains film's title, id, release_date
+ * and description
+ */
 function parseJsonData(movies) {
   return movies.map((movie) => {
     return {
@@ -73,7 +92,12 @@ function parseJsonData(movies) {
   });
 }
 
-//generate select menu
+/**
+ * Add each film's title to the dropdown menu as options
+ * @param {[]Object} moviesData - an array of objects, each object contains film's title, id, release_date
+ * and description
+ * @param {<select>} selectMenu - The dropdown menu displayed all ghibli film's title
+ */
 function generateSelectMenu(moviesData, selectMenu) {
   moviesData.forEach((movie) => {
     let option = document.createElement("option");
@@ -83,7 +107,14 @@ function generateSelectMenu(moviesData, selectMenu) {
   });
 }
 
-//generate movie description
+/**
+ * Display the selected movie's title, released_year and description
+ * @param {[]Object} moviesData - an array of objects, each object contains film's title, id, release_date
+ * and description
+ * @param {<select>} selectMenu - The dropdown menu displayed all ghibli film's title
+ * @param {<div>} movieDetails - place to show the film's title, released year and description
+ * @param {<ol>} displayPeople - place to display the people inside the film
+ */
 function generateMovieDescription(
   moviesData,
   selectMenu,
@@ -110,7 +141,14 @@ function generateMovieDescription(
   });
 }
 
-//generate the user reviews
+/**
+ * Display the user reviews
+ * @param {[]Object} moviesData - an array of objects, each object contains film's title, id, release_date
+ * and description
+ * @param {<select>} selectMenu - The dropdown menu displayed all ghibli film's title
+ * @param {<form>} userInputReviewForm - place to receive user reviews
+ * @param {<ul>} displayReviews - place to display the user reviews
+ */
 function generateReviews(
   moviesData,
   selectMenu,
@@ -134,7 +172,11 @@ function generateReviews(
   });
 }
 
-//empty reviews when button clicked
+/**
+ *
+ * @param {<button>} resetReviewsButton - button that will empty the user reviews
+ * @param {<ul>} displayReviews - place to display the user reviews
+ */
 function addResetReviewsButton(resetReviewsButton, displayReviews) {
   resetReviewsButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -142,7 +184,13 @@ function addResetReviewsButton(resetReviewsButton, displayReviews) {
   });
 }
 
-//show people when the show people button clicked
+/**
+ * Show people that are inside the film, if no people found for the film, then it will not display
+ * @param {String} BASE_URL - The url of Ghibli api
+ * @param {<select>} selectMenu - The dropdown menu displayed all ghibli film's title
+ * @param {<button>} showPeopleButton - button that will show the people inside the film
+ * @param {<ol>} displayPeople - place to display the people inside the film
+ */
 function showPeopleOfTheFilm(
   BASE_URL,
   selectMenu,
