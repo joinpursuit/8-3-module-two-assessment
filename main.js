@@ -69,13 +69,20 @@ showPeopleButton.addEventListener("click", (event) => {
 		return;
 	}
 	obj.find((item) => item.id === dropdown.value).people.forEach((person) => {
-		let listItem = document.createElement("li");
+		//let listItem = document.createElement("li");
 		fetch(person)
 			.then((response) => response.json())
-			.then((obj) => obj.name)
-			.finally((returnedValue) => {
-				listItem.textContent = returnedValue;
-				document.querySelector("#people").append(listItem);
-			});
+			.then((obj) => addToList(obj.name))
+			.catch((error) => console.log(error));
+		// .finally((returnedValue) => {
+		// 	listItem.textContent = returnedValue;
+		// 	document.querySelector("#people").append(listItem);
+		// });
 	});
 });
+
+const addToList = (name) => {
+	let listItem = document.createElement("li");
+	listItem.textContent = name;
+	document.querySelector("#people").append(listItem);
+};
