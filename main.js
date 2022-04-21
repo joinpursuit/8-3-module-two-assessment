@@ -3,6 +3,7 @@ const selectMenu = document.querySelector("section select");
 const movieDetails = document.getElementById("display-info");
 const userInputReviewForm = document.querySelector("section form");
 const displayReviews = document.querySelector("section ul");
+const resetReviewsButton = document.getElementById("reset-reviews");
 
 generateWebPage(
   BASE_URL,
@@ -24,6 +25,7 @@ function generateWebPage(BASE_URL, selectMenu, movieDetails) {
     })
     .then((moviesData) => {
       generateMovieDescription(moviesData, selectMenu, movieDetails);
+      addResetReviewsButton(resetReviewsButton, displayReviews);
       generateReviews(
         moviesData,
         selectMenu,
@@ -95,7 +97,14 @@ function generateReviews(
     });
     let reviewListItem = document.createElement("li");
     reviewListItem.innerHTML = `<strong>${movie.title}:</strong> ${userReview}`;
-    console.log(displayReviews);
     displayReviews.append(reviewListItem);
+  });
+}
+
+//empty reviews when button clicked
+function addResetReviewsButton(resetReviewsButton, displayReviews) {
+  resetReviewsButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    displayReviews.innerHTML = "";
   });
 }
