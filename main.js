@@ -1,4 +1,6 @@
-fetch("https://ghibliapi.herokuapp.com/films")
+const BASE_URL = "https://ghibliapi.herokuapp.com/";
+
+fetch(`${BASE_URL}films`)
   .then((response) => response.json())
   .then((films) => {
     const titles = document.querySelector("#titles");
@@ -36,7 +38,14 @@ fetch("https://ghibliapi.herokuapp.com/films")
       reviewList.append(newFilm);
       event.target.reset();
     });
+  });
+
+fetch(`${BASE_URL}people`)
+  .then((response) => response.json())
+    .then((people) => {
+      console.log(people)
   })
+
   .catch((error) => {
     console.log(error);
   });
