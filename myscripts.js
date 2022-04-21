@@ -1,12 +1,12 @@
 let h3_Title = document.querySelector("h3");
 let p_Year = document.getElementById("year");
 let p_Des = document.getElementById("description");
-let movies = document.getElementById("titles");
+let film = document.getElementById("titles");
 
-function getTitles(moives) {
+function getTitles(movies) {
   let title = new Set();
-  for (let moive of moives) {
-    title.add(moive.title);
+  for (let movie of movies) {
+    title.add(movie.title);
   }
   const dropdown = document.getElementById("titles");
 
@@ -17,9 +17,9 @@ function getTitles(moives) {
 
     dropdown.append(option);
 
-    movies.addEventListener("click", (event) => {
+    film.addEventListener("click", (event) => {
       event.preventDefault;
-      h3_Title.innerHTML = movies.value;
+      h3_Title.innerHTML = film.value;
     });
   }
   return [...title];
