@@ -1,10 +1,15 @@
 body {
   background-color: lavender;
   font-family: monospace;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
 }
 
 header {
   background-color: skyblue;
+  height: 150px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 #logo {
