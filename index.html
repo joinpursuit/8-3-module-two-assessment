@@ -10,20 +10,21 @@
 	</head>
 	<body>
 		<header>
+			<img src="./images/ghibli-logo.png" alt="Ghibli logo" />
 			<h1>Ghibli Review App</h1>
 		</header>
 		<main>
-			<section>
+			<section class="selector">
 				<h2>Select a movie</h2>
 				<form>
-					<label>
+					<label for="review">
 						<select name="movies" id="titles">
 							<option value=""></option>
 						</select>
 					</label>
 				</form>
 			</section>
-			<section>
+			<section id="review-form">
 				<h2>Add a review</h2>
 				<form>
 					<label for="review"> Your review </label>
@@ -33,14 +34,18 @@
 			</section>
 			<section>
 				<h2>Movie details</h2>
-				<div id="display-info"></div>
+				<div id="display-info">
+					<h3></h3>
+					<p id="release-year"></p>
+					<p id="description"></p>
+				</div>
 			</section>
 			<section>
 				<h2>People</h2>
 				<ol></ol>
 				<button id="show-people">Show People</button>
 			</section>
-			<section>
+			<section id="review-list">
 				<h2>Reviews</h2>
 				<ul></ul>
 				<button id="reset-reviews">Reset Reviews</button>

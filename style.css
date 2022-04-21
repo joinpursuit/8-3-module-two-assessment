@@ -1,0 +1,17 @@
+body {
+	background-color: lavender;
+	font-family: monospace;
+}
+header {
+	width: 75%;
+	left: 25%;
+	right: 25%;
+	background-color: skyblue;
+	height: 200px;
+}
+header img {
+	height: inherit;
+}
+h1 {
+	text-align: right;
+}
