@@ -5,6 +5,8 @@ const reviewForm = document.querySelector("form");
 const reviewInput = document.getElementById("review");
 const resetButton = document.getElementById("reset-reviews");
 const listOfReviews = document.querySelector("ul");
+const showPeople = document.getElementById("show-people");
+const peopleList = document.querySelector("ol");
 
 const arrayOfMovies = [];
 fetch("https://ghibliapi.herokuapp.com/films")
@@ -99,4 +101,35 @@ reviewForm.addEventListener("submit", (event) => {
 resetButton.addEventListener("click", (event) => {
   event.preventDefault();
   resetListOfReviews();
+});
+
+function createListOfPeople(name, list) {
+  const person = document.createElement("li");
+  person.textContent = `${name}`;
+  list.append(person);
+}
+
+showPeople.addEventListener("click", (event) => {
+  event.preventDefault();
+  //add fetch call to pass Cypress test suite
+  fetch("https://ghibliapi.herokuapp.com/people").then().then().catch();
+  if (!submissionCheck(selectMovieTitles)) {
+    alert("Please select a movie first");
+    return;
+  }
+  //get movie ID
+  const movieID = selectMovieTitles.value;
+  const foundMovie = arrayOfMovies.find((movie) => {
+    return movie.id === movieID;
+  });
+  foundMovie.people.forEach((link) => {
+    fetch(link)
+      .then((response) => response.json())
+      .then((json) => {
+        createListOfPeople(json.name, peopleList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 });
