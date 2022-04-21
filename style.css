@@ -1,0 +1,35 @@
+body {
+    display: grid;
+    gap: 1.5rem;
+    background-color: #e6e6fa;
+    font-family: monospace;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+header {
+    display: grid;
+    background-color: skyblue;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+h1 {
+    grid-column-start: 3;
+}
+
+img {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 75%;
+}
+
+main {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 1.5rem;
+}
+
+select {
+    width: 25%;
+}
