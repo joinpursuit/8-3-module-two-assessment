@@ -19,6 +19,12 @@ fetch("https://ghibliapi.herokuapp.com/films")
     console.log(error);
   });
 
+function submissionCheck(selection) {
+  if (selection.value === "") {
+    return false;
+  }
+  return true;
+}
 function createOptions(object) {
   const opt = document.createElement("option");
   opt.textContent = object.title;
@@ -46,6 +52,10 @@ function createMovieDescription(object, div) {
 
 selectMovieTitles.addEventListener("change", (event) => {
   event.preventDefault();
+  if (!submissionCheck(selectMovieTitles)) {
+    alert("Please select a movie first");
+    return;
+  }
   //gets selected movie ID
   const movieInfo = event.target.value;
   //find matching movie in the arrayOfMovies using ID, store as foundMovie
@@ -73,13 +83,17 @@ function resetListOfReviews() {
 
 reviewForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (!submissionCheck(selectMovieTitles)) {
+    alert("Please select a movie first");
+    return;
+  }
   const foundMovie = arrayOfMovies.find((movie) => {
     return movie.id === selectMovieTitles.value;
   });
   const review = reviewInput.value;
   //Create list of reviews and appending to unordered list of reviews
   createListOfReviews(foundMovie, listOfReviews, review);
-  reviewInput.value = ""; //reset input text field to empty
+  reviewInput.value = "";
 });
 
 resetButton.addEventListener("click", (event) => {
