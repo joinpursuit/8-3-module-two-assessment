@@ -26,8 +26,7 @@ img {
 
 main {
     display: grid;
-    grid-template-rows: repeat(5, 1fr);
-    gap: 1.5rem;
+    height: min-content;
 }
 
 select {
