@@ -85,8 +85,11 @@ form.addEventListener("submit", (event) => {
   let li = document.createElement("li");
   ul.append(li);
 
-  li.innerHTML = `<strong> ${film.value}: </strong> ${text.value}`;
-
+  if (!film.value) {
+    li.innerHTML = "Please select a movie first";
+  } else {
+    li.innerHTML = `<strong> ${film.value}: </strong> ${text.value}`;
+  }
   text.value = "";
 });
 
