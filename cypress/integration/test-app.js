@@ -83,7 +83,7 @@ describe("Initial Layout", () => {
   });
 });
 
-describe("Select Menu", () => {
+describe.only("Select Menu", () => {
   before(() => {
     cy.visit("/");
     interceptFilms();
