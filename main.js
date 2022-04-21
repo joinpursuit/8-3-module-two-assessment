@@ -4,6 +4,8 @@ const movieDetails = document.getElementById("display-info");
 const userInputReviewForm = document.querySelector("section form");
 const displayReviews = document.querySelector("section ul");
 const resetReviewsButton = document.getElementById("reset-reviews");
+const showPeopleButton = document.getElementById("show-people");
+const displayPeople = document.querySelector("section ol");
 
 generateWebPage(
   BASE_URL,
@@ -11,7 +13,9 @@ generateWebPage(
   movieDetails,
   userInputReviewForm,
   displayReviews,
-  resetReviewsButton
+  resetReviewsButton,
+  showPeopleButton,
+  displayPeople
 );
 
 function generateWebPage(
@@ -39,6 +43,12 @@ function generateWebPage(
         selectMenu,
         userInputReviewForm,
         displayReviews
+      );
+      showPeopleOfTheFilm(
+        BASE_URL,
+        selectMenu,
+        showPeopleButton,
+        displayPeople
       );
     })
     .catch((error) => {
@@ -118,5 +128,40 @@ function addResetReviewsButton(resetReviewsButton, displayReviews) {
   resetReviewsButton.addEventListener("click", (event) => {
     event.preventDefault();
     displayReviews.innerHTML = "";
+  });
+}
+
+//show people when the show people button clicked
+function showPeopleOfTheFilm(
+  BASE_URL,
+  selectMenu,
+  showPeopleButton,
+  displayPeople
+) {
+  showPeopleButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    displayPeople.innerHTML = "";
+    let movieId = selectMenu.value;
+    fetch(BASE_URL + "people")
+      .then((response) => {
+        return response.json();
+      })
+      .then((people) => {
+        if (movieId !== "") {
+          for (let person of people) {
+            for (let film of person.films) {
+              if (film.includes(movieId)) {
+                let peopleListItem = document.createElement("li");
+                peopleListItem.textContent = person.name;
+                displayPeople.append(peopleListItem);
+                break;
+              }
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 }
