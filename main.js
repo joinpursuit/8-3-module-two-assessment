@@ -1,6 +1,8 @@
 const URL = "https://ghibliapi.herokuapp.com/films";
 let select = document.getElementById("titles");
 let reviewList = document.querySelector("section ul");
+let peopleList = document.querySelector("section ol");
+console.log(select);
 
 fetch(URL)
   .then((res) => res.json())
