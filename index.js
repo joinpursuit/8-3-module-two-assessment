@@ -67,6 +67,11 @@ const filmReviewForm = document.querySelector("main section form");
 filmReviewForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  if (!selectedMovie) {
+    alert("Please select a movie first");
+    return;
+  }
+
   let review = event.target.review.value;
   const reviewsSection = document.querySelector("section ul");
 
@@ -80,6 +85,7 @@ filmReviewForm.addEventListener("submit", (event) => {
 // Event Listener for Review Reset Button
 const resetReviewsButton = document.getElementById("reset-reviews");
 resetReviewsButton.addEventListener("click", (event) => {
+  event.preventDefault();
   const reviews = document.querySelector("ul");
   reviews.innerHTML = "";
 });
