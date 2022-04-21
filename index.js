@@ -1,4 +1,5 @@
 const BASE_URL = "https://ghibliapi.herokuapp.com/films";
+let selectedMovie;
 
 fetch(BASE_URL)
   .then((res) => res.json())
@@ -22,20 +23,27 @@ function populateFilmsDropdown(res) {
     dropdown.append(dropdownOption);
   });
 
-  const yearAndDescription = document.createElement("p");
-  const selectMovieSection = document.querySelectorAll("section")[0];
-  selectMovieSection.append(yearAndDescription);
-
   dropdown.addEventListener("change", (event) => {
-    let selectedMovie = event.target.value;
+    selectedMovie = event.target.value;
     if (!selectedMovie) {
       return;
     } else {
-      res.forEach((movieObj) => {
-        if (movieObj.id === selectedMovie) {
-          yearAndDescription.innerText = "";
+      res.forEach((filmObject) => {
+        if (filmObject.id === selectedMovie) {
+          const movieInfo = document.querySelector("#display-info");
+          movieInfo.innerText = "";
 
-          yearAndDescription.innerText = `${movieObj.release_date}${movieObj.description}`;
+          const movieTitle = document.createElement("p");
+          const movieYear = document.createElement("p");
+          const movieDescription = document.createElement("p");
+
+          movieTitle.innerHTML = `<strong>${filmObject.title}</strong>`;
+          movieYear.innerText = filmObject.release_date;
+          movieDescription.innerText = filmObject.description;
+
+          movieInfo.append(movieTitle);
+          movieInfo.append(movieYear);
+          movieInfo.append(movieDescription);
         }
       });
     }
