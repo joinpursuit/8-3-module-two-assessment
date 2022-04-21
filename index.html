@@ -5,7 +5,7 @@
         <meta charset = "UTF-2">
         <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
         <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
-        <title>Weather App Project</title>
+        <title>Ghibli Movies</title>
         <script defer src = "./main.js"></script>
         <link href = "./style.css" rel = "stylesheet"/>
     </head>
@@ -15,30 +15,24 @@
         </header>
         <main>
             <section>
-                <h2>Select a movie</h2>
-                <select id = "Selection">Titles:
-                    <option value = ""></option>
+                <h2>Select a movie*</h2>
+                <select id = "Selection" name = "Selection" value = "" class = "required">Title:*
+                    <option  id = "Sel" value = ""></option>
                 </select>
             </section>
             <section>
                 <h2>Add a review</h2>
-                 <form>
+                 <form id ="userReview">
                      <label for = "review"> Your review 
-                     <input id = "review" type = "text" />
+                     <input id = "review" type = "text" name = "review"/>
                      <input type = "submit"/>
                     </label>
                  </form>
             </section>
             <section>
                 <h2>Movie details</h2>
-                <div id = "display-info">
-                    <h3 class = "placeholder"></h3>
-                    <p class = "placeholder">
-
-                    </p>
-                    <p class = "placeholder">
-
-                    </p>
+                <div id = "display-info" name = "display-info">
+                   
                 </div>
             </section>
             <section>
@@ -51,7 +45,7 @@
             <section>
                 <h2>Reviews</h2>
                 <ul>
-                    <li class = "placeholder"></li>
+                   
                 </ul>
                 <button id = "reset-reviews">Reset Reviews</button>
             </section>
