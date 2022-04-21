@@ -8,10 +8,18 @@ fetch(BASE_URL)
 
 // Helper Functions
 
+/**
+ * The displayError function prints any input error message onto the console
+ * @param {string} error
+ */
 function displayError(error) {
   console.log(error);
 }
 
+/**
+ * The populateFilmsDropdown function inserts movie titles from the response object received by the API fetch call into a dropdown menu and then adds an event listener to that dropdown that dynamically outputs the selected movie info on the page
+ * @param {res} res
+ */
 function populateFilmsDropdown(res) {
   const dropdown = document.querySelector("select");
 
