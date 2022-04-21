@@ -17,19 +17,24 @@ function getTitles(moives) {
 
     dropdown.append(option);
 
-    movies.addEventListener("click", function () {
-      h3_Title.innerHTML = titles;
-      p_Year.innerHTML = getTitles.release_date;
+    movies.addEventListener("click", (event) => {
+      event.preventDefault;
+      h3_Title.innerHTML = movies.value;
     });
   }
   return [...title];
 }
+
+// function getYear(date) {
+
+// }
 
 fetch("https://ghibliapi.herokuapp.com/films/")
   .then((response) => response.json())
 
   .then((json) => {
     getTitles(json);
+    // getYear(json);
   })
 
   .catch((error) => console.log(error));
