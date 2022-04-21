@@ -2,9 +2,19 @@ fetch("https://ghibliapi.herokuapp.com/films")
   .then((response) => {
     return response.json();
   })
-  .then((data) => {
-    data.forEach((data) => console.log(data.title));
+  .then((films) => {
+    populateTitles(films);
   })
   .catch((error) => {
     console.log(error);
   });
+
+populateTitles = (filmObj) => {
+  const select = document.getElementById("titles");
+  filmObj.forEach((film) => {
+    let option = document.createElement("option");
+    option.textContent = film.title;
+    option.value = film.id;
+    select.append(option);
+  });
+};
