@@ -1,4 +1,7 @@
 body {
-    background-color: lavender;
+    background-color: rgb(230, 230, 250);
     font-family: monospace;
+}
+header {
+    width: 75%;margin: auto;
 }
