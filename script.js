@@ -1,12 +1,9 @@
-//TODO: Popluate selection options with movies from API (done)
-//TODO: Fix blank default value for select
-//TODO: Populate div with h3 and 2 p elements when movie is selected
 //TODO: Populate ol with li names of people, button should show people (maybe toggle visbility of list)
-//TODO: Populate ul with li reviews, button should reset text to blank
 const selectMovieTitles = document.querySelector("select");
 const movieDetails = document.getElementById("display-info");
 const reviewForm = document.querySelector("form");
 const reviewInput = document.getElementById("review");
+const resetButton = document.getElementById("reset-reviews");
 const listOfReviews = document.querySelector("ul");
 
 const arrayOfMovies = [];
@@ -65,6 +62,15 @@ function createListOfReviews(object, list, string) {
   list.append(reviewItem);
 }
 
+function resetListOfReviews() {
+  const listElements = document.querySelectorAll("ul li");
+  if (listElements) {
+    listElements.forEach((li) => {
+      li.remove();
+    });
+  }
+}
+
 reviewForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const foundMovie = arrayOfMovies.find((movie) => {
@@ -73,5 +79,10 @@ reviewForm.addEventListener("submit", (event) => {
   const review = reviewInput.value;
   //Create list of reviews and appending to unordered list of reviews
   createListOfReviews(foundMovie, listOfReviews, review);
-  reviewInput.value = "";
+  reviewInput.value = ""; //reset input text field to empty
+});
+
+resetButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  resetListOfReviews();
 });
