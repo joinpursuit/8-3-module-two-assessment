@@ -1,16 +1,18 @@
-//TODO: Popluate selection options with movies from API
+//TODO: Popluate selection options with movies from API (done)
 //TODO: Fix blank default value for select
 //TODO: Populate div with h3 and 2 p elements when movie is selected
 //TODO: Populate ol with li names of people, button should show people (maybe toggle visbility of list)
 //TODO: Populate ul with li reviews, button should reset text to blank
 const selectMovieTitles = document.querySelector("select");
-//const movieDetails = document.querySelector("div");
+const movieDetails = document.getElementById("display-info");
 
+const arrayOfMovies = [];
 fetch("https://ghibliapi.herokuapp.com/films")
   .then((response) => response.json())
   .then((json) => {
     json.forEach((j) => {
       selectMovieTitles.append(createOptions(j));
+      arrayOfMovies.push(j);
     });
   })
   .catch((error) => {
@@ -23,3 +25,32 @@ function createOptions(object) {
   opt.setAttribute("value", object.id);
   return opt;
 }
+function createMovieDescription(object, div) {
+  const previousHeading = document.querySelector("div h3");
+  const previousParagraphs = document.querySelectorAll("div p");
+  if (previousHeading && previousParagraphs) {
+    previousHeading.remove();
+    previousParagraphs.forEach((paragraph) => {
+      paragraph.remove();
+    });
+  }
+  const heading = document.createElement("h3");
+  heading.textContent = object.title;
+  const releaseDate = document.createElement("p");
+  releaseDate.textContent = object.release_date;
+  const description = document.createElement("p");
+  description.textContent = object.description;
+  div.append(heading, releaseDate, description);
+}
+
+selectMovieTitles.addEventListener("change", (event) => {
+  event.preventDefault();
+  //gets selected movie ID
+  const movieInfo = event.target.value;
+  //find matching movie in the arrayOfMovies using ID, store as foundMovie
+  let foundMovie = arrayOfMovies.find((movie) => {
+    return movie.id === movieInfo;
+  });
+  //Create movie description using found movie object
+  createMovieDescription(foundMovie, movieDetails);
+});
