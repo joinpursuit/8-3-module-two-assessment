@@ -1,7 +1,6 @@
 const BASE_URL = `https://ghibliapi.herokuapp.com/`;
 const movies = document.querySelector("#titles");
 const selector = document.querySelector(".selector form");
-//const movieDetails = document.querySelector("#display-info");
 const reviewForm = document.querySelector("#review-form form");
 const reviewText = document.querySelector("#review-form input#review");
 const dropdown = document.querySelector("select");
@@ -14,10 +13,8 @@ let obj;
 const populateFilms = (file) => {
 	obj = file;
 	for (let movie in file) {
-		// let movieTitle= movie.title;
-		//console.log(file);
 		let entry = document.createElement("option");
-		entry.value = file[movie].id; //bizzare
+		entry.value = file[movie].id;
 		entry.textContent = file[movie].title;
 		movies.append(entry);
 	}
@@ -39,7 +36,6 @@ selector.addEventListener("change", (event) => {
 				obj[movie].description;
 		}
 	}
-	//console.log(movieId);
 });
 
 reviewForm.addEventListener("submit", (event) => {
@@ -53,7 +49,7 @@ reviewForm.addEventListener("submit", (event) => {
 	let listItem = document.createElement("li");
 	listItem.innerHTML = `<strong>${
 		obj.find((item) => item.id === dropdown.value).title
-	}.</strong> - ${review}`; //TODO: needs movie title in <strong> as well
+	}.</strong> - ${review}`;
 	reviewList.append(listItem);
 });
 
@@ -69,15 +65,10 @@ showPeopleButton.addEventListener("click", (event) => {
 		return;
 	}
 	obj.find((item) => item.id === dropdown.value).people.forEach((person) => {
-		//let listItem = document.createElement("li");
 		fetch(person)
 			.then((response) => response.json())
 			.then((obj) => addToList(obj.name))
 			.catch((error) => console.log(error));
-		// .finally((returnedValue) => {
-		// 	listItem.textContent = returnedValue;
-		// 	document.querySelector("#people").append(listItem);
-		// });
 	});
 });
 
