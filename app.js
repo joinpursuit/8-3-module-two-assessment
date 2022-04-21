@@ -1,18 +1,32 @@
-const writeMovieReviews = (movies, selectMovieTitle, movieInfo, form) => {
+const writeMovieReviews = (
+  movies,
+  selectMovieTitle,
+  movieInfo,
+  form,
+  resetReview
+) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    const errorMessage = document.querySelector('section p.error');
+    errorMessage.innerHTML = ''
 
     const reviewInput = e.target.review.value;
     if (reviewInput === '' || reviewInput === null) {
-      const errorMessage = document.querySelector('error');
-      errorMessage.innerHTML =
-        'Error!!! Reviews cannot be blank.Enter your review';
+      
+      console.log(errorMessage);
+      errorMessage.innerHTML = `Error!!! Reviews cannot be blank.Enter your review`;
       return;
+    }
+
+    if (selectMovieTitle.value === '' || selectMovieTitle.value === null) {
+      if (reviewInput !== '' || reviewInput !== null) {
+        alert("Please select a movie first");
+      }
+     return;
     }
 
     let duplicateListItem = false;
     ul = document.querySelector('ul');
-    console.log('ul===', ul);
 
     const listItem = document.querySelectorAll('section ul li');
     const listArray = Array.from(listItem);
@@ -20,6 +34,7 @@ const writeMovieReviews = (movies, selectMovieTitle, movieInfo, form) => {
       console.log(list);
       if (list.textContent.includes(reviewInput)) {
         duplicateListItem = true;
+        form.reset();
       }
     });
 
@@ -29,11 +44,14 @@ const writeMovieReviews = (movies, selectMovieTitle, movieInfo, form) => {
       ul.append(li);
       form.reset();
     }
-
     document.querySelectorAll('li').forEach((list) => {
       list.addEventListener('click', () => {
         list.remove();
       });
+    });
+
+    resetReview.addEventListener('click', () => {
+      ul.innerHTML = '';
     });
   });
 };
@@ -59,7 +77,13 @@ const renderMovieDetails = (movies, selectMovieTitle, movieInfo) => {
   });
 };
 
-const createSelect = (BASE_URL, selectMovieTitle, movieInfo, form) => {
+const createSelect = (
+  BASE_URL,
+  selectMovieTitle,
+  movieInfo,
+  form,
+  resetReview
+) => {
   fetch(`${BASE_URL}films`)
     .then((res) => {
       return res.json();
@@ -72,7 +96,7 @@ const createSelect = (BASE_URL, selectMovieTitle, movieInfo, form) => {
         selectMovieTitle.append(option);
       });
       renderMovieDetails(movies, selectMovieTitle, movieInfo);
-      writeMovieReviews(movies, selectMovieTitle, movieInfo, form);
+      writeMovieReviews(movies, selectMovieTitle, movieInfo, form, resetReview);
     })
     .catch((error) => {
       console.log(error);
@@ -83,8 +107,9 @@ const BASE_URL = 'https://ghibliapi.herokuapp.com/';
 const selectMovieTitle = document.querySelector('section select');
 const movieInfo = document.querySelector('#display-info');
 const form = document.querySelector('form');
+const resetReview = document.querySelector('#reset-reviews');
 
 window.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
-  createSelect(BASE_URL, selectMovieTitle, movieInfo, form);
+  createSelect(BASE_URL, selectMovieTitle, movieInfo, form, resetReview);
 });
