@@ -5,6 +5,9 @@
 //TODO: Populate ul with li reviews, button should reset text to blank
 const selectMovieTitles = document.querySelector("select");
 const movieDetails = document.getElementById("display-info");
+const reviewForm = document.querySelector("form");
+const reviewInput = document.getElementById("review");
+const listOfReviews = document.querySelector("ul");
 
 const arrayOfMovies = [];
 fetch("https://ghibliapi.herokuapp.com/films")
@@ -25,6 +28,7 @@ function createOptions(object) {
   opt.setAttribute("value", object.id);
   return opt;
 }
+
 function createMovieDescription(object, div) {
   const previousHeading = document.querySelector("div h3");
   const previousParagraphs = document.querySelectorAll("div p");
@@ -48,9 +52,26 @@ selectMovieTitles.addEventListener("change", (event) => {
   //gets selected movie ID
   const movieInfo = event.target.value;
   //find matching movie in the arrayOfMovies using ID, store as foundMovie
-  let foundMovie = arrayOfMovies.find((movie) => {
+  const foundMovie = arrayOfMovies.find((movie) => {
     return movie.id === movieInfo;
   });
   //Create movie description using found movie object
   createMovieDescription(foundMovie, movieDetails);
+});
+
+function createListOfReviews(object, list, string) {
+  const reviewItem = document.createElement("li");
+  reviewItem.innerHTML = `<strong>${object.title}:</strong> ${string}`;
+  list.append(reviewItem);
+}
+
+reviewForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const foundMovie = arrayOfMovies.find((movie) => {
+    return movie.id === selectMovieTitles.value;
+  });
+  const review = reviewInput.value;
+  //Create list of reviews and appending to unordered list of reviews
+  createListOfReviews(foundMovie, listOfReviews, review);
+  reviewInput.value = "";
 });
