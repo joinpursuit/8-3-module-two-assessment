@@ -25,6 +25,17 @@ fetch("https://ghibliapi.herokuapp.com/films")
         }
       }
     });
+
+    const reviewList = document.querySelector("#review-list");
+    const reviewForm = document.querySelector("form");
+
+    reviewForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      newFilm = document.createElement("li");
+      newFilm.innerHTML = `<strong>${selectedFilm.title}:</strong> ${event.target.review.value}`;
+      reviewList.append(newFilm);
+      event.target.reset();
+    });
   })
   .catch((error) => {
     console.log(error);
