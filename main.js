@@ -43,7 +43,7 @@ fetch(`${BASE_URL}films`)
 
     resetReviews.addEventListener("click", (event) => {
       event.preventDefault();
-      reviewList.remove();
+      reviewList.innerHTML = "";
     });
   });
 
