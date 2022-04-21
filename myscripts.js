@@ -1,8 +1,10 @@
+let form = document.querySelector("form");
 let h3_Title = document.querySelector("h3");
 let p_Year = document.getElementById("year");
 let p_Des = document.getElementById("description");
 let film = document.getElementById("titles");
 
+//selectbox dropdown
 function getTitles(movies) {
   let title = new Set();
 
@@ -28,6 +30,7 @@ function getTitles(movies) {
   return [...title];
 }
 
+//get release date year
 function getInfo(years) {
   let release_date = new Set();
 
@@ -57,6 +60,7 @@ function getInfo(years) {
   }
 }
 
+//get movie description
 function getDes(des) {
   let description = new Set();
 
@@ -71,6 +75,20 @@ function getDes(des) {
     });
   }
 }
+
+//write review
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const text = document.querySelector("input[type='text']");
+  const ul = document.querySelector("ul");
+  let li = document.createElement("li");
+  ul.append(li);
+
+  li.innerHTML = `<strong> ${film.value}: </strong> ${text.value}`;
+
+  text.value = "";
+});
 
 fetch("https://ghibliapi.herokuapp.com/films/")
   .then((response) => response.json())
