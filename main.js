@@ -10,10 +10,18 @@ generateWebPage(
   selectMenu,
   movieDetails,
   userInputReviewForm,
-  displayReviews
+  displayReviews,
+  resetReviewsButton
 );
 
-function generateWebPage(BASE_URL, selectMenu, movieDetails) {
+function generateWebPage(
+  BASE_URL,
+  selectMenu,
+  movieDetails,
+  userInputReviewForm,
+  displayReviews,
+  resetReviewsButton
+) {
   fetch(`${BASE_URL}films`)
     .then((response) => {
       return response.json();
@@ -91,13 +99,17 @@ function generateReviews(
   userInputReviewForm.addEventListener("submit", (event) => {
     event.preventDefault();
     let userReview = userInputReviewForm.querySelector("#review").value;
-    userInputReviewForm.querySelector("#review").value = "";
-    let movie = moviesData.find((movie) => {
-      return movie.id === selectMenu.value;
-    });
-    let reviewListItem = document.createElement("li");
-    reviewListItem.innerHTML = `<strong>${movie.title}:</strong> ${userReview}`;
-    displayReviews.append(reviewListItem);
+    if (selectMenu.value === "") {
+      alert("Please select a movie first");
+    } else {
+      userInputReviewForm.querySelector("#review").value = "";
+      let movie = moviesData.find((movie) => {
+        return movie.id === selectMenu.value;
+      });
+      let reviewListItem = document.createElement("li");
+      reviewListItem.innerHTML = `<strong>${movie.title}:</strong> ${userReview}`;
+      displayReviews.append(reviewListItem);
+    }
   });
 }
 
