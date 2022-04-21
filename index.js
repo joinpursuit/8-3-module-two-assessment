@@ -3,7 +3,7 @@ let selectedMovie;
 
 fetch(BASE_URL)
   .then((res) => res.json())
-  .then(populateFilmsDropdown)
+  .then(filmsDropdown)
   .catch(displayError);
 
 // Helper Functions
@@ -17,10 +17,10 @@ function displayError(error) {
 }
 
 /**
- * The populateFilmsDropdown function inserts movie titles from the response object received by the API fetch call into a dropdown menu and then adds an event listener to that dropdown that dynamically outputs the selected movie info on the page
+ * The filmsDropdown function inserts movie titles from the response object received by the API fetch call into a dropdown menu and then adds an event listener to that dropdown that dynamically outputs the selected movie info on the page
  * @param {res} res
  */
-function populateFilmsDropdown(res) {
+function filmsDropdown(res) {
   const dropdown = document.querySelector("select");
 
   res.forEach((filmObject) => {
@@ -38,6 +38,8 @@ function populateFilmsDropdown(res) {
     } else {
       res.forEach((filmObject) => {
         if (filmObject.id === selectedMovie) {
+          selectedMovie = filmObject.title;
+
           const movieInfo = document.querySelector("#display-info");
           movieInfo.innerText = "";
 
@@ -57,3 +59,18 @@ function populateFilmsDropdown(res) {
     }
   });
 }
+
+const filmReviewForm = document.querySelector("main section form");
+filmReviewForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  let review = event.target.review.value;
+  console.log(selectedMovie);
+
+  const reviewsSection = document.querySelector("section ul");
+
+  const movieReview = document.createElement("li");
+  movieReview.innerHTML = `<strong>${selectedMovie}:</strong> ${review}`;
+
+  reviewsSection.append(movieReview);
+});
