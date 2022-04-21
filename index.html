@@ -12,25 +12,28 @@
 	</head>
 	<body>
 		<header>
+            
 			<img class="header-image" src="./images/ghibli-logo.png" alt="Ghibli logo" />
-			<h1 class="heading">Ghibli Review App</h1>
+            <h1 class="heading">Ghibli Review App</h1>
+			
 		</header>
         <main>
             <section>
-            <h2>Select a movie:</h2>
-		    <select name="titles" id="dropDown">
-                <option value="">---Select a Category--</option>
-            </select>
+                <h2>Select a movie</h2>
+                <select>
+                    <option value=""></option>
+                </select>
             </section>
 
-            <section class="reviews-section"> 
+            <section> 
                 <h2><strong> Add a review</strong></h2>
-                <form id="write-review">
+                <form >
                    <label for="review">Your Review	</label>
-               <input type="text" placeholder="Write Your Review Here" name="review" class="review" id="review"/>
-              <input type="submit" value="+" class="button" />
+               <input type="text"  id="review"/>
+              <input type="submit" value="Submit" />
           
                </form>
+               <p class="error"></p>
           </section>
   
           <section>
@@ -38,19 +41,17 @@
             <div id="display-info"></div>
         </section>
 
-        <section id="people">
-            <h2><strong>People</strong></h2>
+        <section>
+            <h2>People</h2>
             <ol></ol>
-            <button type="button" id="show-people">Show People</button>
+            <button id="show-people">Show People</button>
         </section>
 
-        <section id="display-reviews">
+        <section >
             <h2>Reviews</h2>
-            <ul class="movie-reviews"> </ul>
-            <button type="button" id="reset-reviews">Reset Reviews</button>
+            <ul> </ul>
+            <button id="reset-reviews">Reset Reviews</button>
         </section>
-        
-         
 
     </main>
 	
