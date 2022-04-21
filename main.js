@@ -3,8 +3,10 @@ fetch('https://ghibliapi.herokuapp.com/films')
     return response.json();
   })
   .then((response) => {
+    console.log(response)
     getFilms(response);
   });
+
 
 const getFilms = (response) => {
     const titles = document.getElementById('titles')
@@ -27,14 +29,45 @@ const getFilms = (response) => {
         title.textContent = match.title;
         year.textContent = match.release_date;
         description.textContent = match.description;
+
+    fetch(`https://ghibliapi.herokuapp.com/films/${titles.value}`)
+        .then((response) => {
+            return response.json();
+        })
+        .then((response) => {
+            let film = response.people
+            for (let people of film){
+                fetch(`${people}`)
+                .then((response) => {
+                    return response.json();
+                  })
+                  .then((response) => {
+                    getPeople(response.name)
+                  });
+            }
+        });
+
     });
 };
+
+const getPeople = (response) => {
+    const name = document.createElement('li')
+    name.textContent = response
+
+    const peopleButton = document.getElementById("show-people")
+
+    peopleButton.addEventListener('click', (event) => {
+        event.preventDefault()
+        const listOfPeople = document.querySelector('ol')
+        listOfPeople.append(name)
+    })
+}
 
 const reviewForm = document.querySelector('form')
 
 reviewForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    if (title.textContent === ''){
+    if (!title.textContent){
         alert("Please select a movie first")
     } else {
         const text = document.getElementById('review')
@@ -42,7 +75,6 @@ reviewForm.addEventListener('submit', (event) => {
         const review = document.createElement('li')
         
         review.innerHTML = `<strong>${title.textContent}: </strong><span>${text.value}</span>`
-    
         reviewList.append(review)
     }
     reviewForm.reset()
