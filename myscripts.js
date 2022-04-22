@@ -101,6 +101,28 @@ form.addEventListener("submit", (event) => {
   });
 });
 
+//get list of people
+let people = document.getElementById("show-people");
+function displayNames(names) {
+  let name = new Set();
+
+  for (let people of names) {
+    name.add(people.name);
+  }
+
+  for (let ppl of name) {
+    people.addEventListener("click", (event) => {
+      event.preventDefault;
+
+      const ol = document.querySelector("ol");
+      let li = document.createElement("li");
+      ol.append(li);
+
+      li.innerHTML = ppl;
+    });
+  }
+}
+
 fetch("https://ghibliapi.herokuapp.com/films/")
   .then((response) => response.json())
 
@@ -111,3 +133,10 @@ fetch("https://ghibliapi.herokuapp.com/films/")
   })
 
   .catch((error) => console.log(error));
+
+fetch("https://ghibliapi.herokuapp.com/people")
+  .then((response) => response.json())
+  .then((test) => {
+    displayNames(test);
+  })
+  .catch((displayError) => console.log(displayError));
