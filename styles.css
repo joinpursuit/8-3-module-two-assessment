@@ -9,11 +9,10 @@ body {
 
 header{
     display: inline-flex;
-    
     width: 75%;
     height: 120px;
     background-color: skyblue;
-text-align: right;
+    text-align: right;
 }
  img { display: inline-flex;
     height: 120px;

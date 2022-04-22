@@ -55,16 +55,16 @@ fetch(API_URL)
   .catch((error) => {
     console.log(error);
   });
-function getReviews(json) {
+function getReviews(item) {
   reviewForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    let reviewInput = document.getElementById('review').value;
+    let input = document.getElementById('review').value;
     if (dropdown.value === '') {
       alert('Please select a movie first');
     } else {
-      let movie = json.find((movie) => movie.id === dropdown.value);
+      let movie = item.find((movie) => movie.id === dropdown.value);
       let li = document.createElement('li');
-      li.innerHTML = `<strong>${movie.title}:</strong>${reviewInput}`;
+      li.innerHTML = `<strong>${movie.title}:</strong>${input}`;
       ul.append(li);
     }
     reviewForm.reset();
