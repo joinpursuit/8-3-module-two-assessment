@@ -1,3 +1,20 @@
+/********************************/
+/*  SHOWPEOPLENAMES FUNCTION */
+/*******************************/
+/**
+ *= showPeopleNames function displays all the people associated with a given  *  film ID
+ * @param {string} BASE_URL -Ghibli app URL
+ * @param { select tag} selectMovieTitle - select tag the contains the filmID   * and name of the film selected
+ * @param {div tag} movieInfo- display the movie details once user selects the * movie
+ * @param {form tag} form - form handles reviews a user inputs and submits it
+ * @param {button tag} resetReview - a button that resets the review list
+ * @param {ul tag}  ullistItem - to display all the reviews for the movie
+ * @param {ol tag} peopleNamesList - display the peopleName associated with the * with the film the user seclected
+ * @modifies {string} modifies the DOM
+ * @returns - No returns
+ *
+ */
+
 const showPeopleNames = (
   BASE_URL,
   movies,
@@ -10,27 +27,19 @@ const showPeopleNames = (
   showPeople.addEventListener('click', (e) => {
     e.preventDefault();
     peopleNamesList.innerHTML = '';
-    // errorMessage.innerHTML = '';
 
     fetch(`${BASE_URL}people`)
       .then((res) => {
         return res.json();
       })
       .then((people) => {
-        console.log(people, selectMovieTitle.value);
         for (let person of people) {
           let filmID = person.films;
-          if (filmID.length < 2) {
-            // p = document.createElement('p)')
-            // const errorMessage = document.querySelector('section p.error');
-            console.log('error')
 
-          }
           for (let film of filmID) {
             console.log('person=', person.id, person.name, 'film=', film);
             const getFilm = film.substring(film.lastIndexOf('/') + 1);
 
-            console.log('gettttt=', getFilm, selectMovieTitle.value);
             if (selectMovieTitle.value === getFilm) {
               let personList = document.createElement('li');
               personList.textContent = person.name;
@@ -46,17 +55,18 @@ const showPeopleNames = (
 };
 
 /********************************/
-/*  RENDERMOVIEDETAILS FUNCTION */
+/*  WRITEMOVIEREVIEWS FUNCTION */
 /*******************************/
 /**
- *= writeMovoerenders and handles the form to take necessay input infornation
+ *= writeMovoerenders function takes in the user review as input and displays  * it as a list item under the reviews section of the app. It checks for       * duplicates and does not display it. The user can also delete a review by   *  clicking on it.
+ * (Found a bug last minute as it was not displaying the same review for another * movie if entered. Need to work on the duplicate of that)
  * @param {string} BASE_URL -Ghibli app URL
- * @param { select tag} selectMovieTitle - select options dynamically created  * for select tag
+ * @param { select tag} selectMovieTitle - select tag the contains the filmID   * and name of the film selected
  * @param {div tag} movieInfo- display the movie details once user selects the * movie
- * @param {form tag} form - form is used to handle all the input details and   * submit it
- * @param {button tag} resetReview - a button that resets listitems of ul list
- * @param {ul tag}  ullistItem - to access list items in the DOM
- * @param {ol tag} peopleNamesLisst - display the ordered list items
+ * @param {form tag} form - form handles reviews a user inputs and submits it
+ * @param {button tag} resetReview - a button that resets the review list
+ * @param {ul tag}  ullistItem - to display all the reviews for the movie
+ * @param {ol tag} peopleNamesList - display the peopleName associated with the * with the film the user seclected
  * @modifies {string} modifies the DOM
  * @returns - No returns
  *
@@ -80,9 +90,13 @@ const writeMovieReviews = (
     errorMessage.innerHTML = '';
 
     const reviewInput = e.target.review.value;
+
     if (reviewInput === '' || reviewInput === null) {
-      // console.log(errorMessage);
       errorMessage.innerHTML = `Error!!! Reviews cannot be blank.Enter your review`;
+      setTimeout(() => {
+        errorMessage.style.display = 'none';
+      }, 2000);
+      errorMessage.style.display = 'block';
       return;
     }
 
@@ -98,46 +112,50 @@ const writeMovieReviews = (
 
     ullistItem = document.querySelectorAll('section ul li');
     const listArray = Array.from(ullistItem);
+
     listArray.forEach((list) => {
-      if (list.textContent.includes(reviewInput)) {
+      if (
+        list.textContent.includes(reviewInput) &&
+        list.textContent.includes(movies.title)
+      ) {
         duplicateListItem = true;
         form.reset();
       }
     });
+
     let findMovie = movies.filter((ele) => ele.id === selectMovieTitle.value);
-    // console.log(movies);
+
     if (!duplicateListItem) {
       let li = document.createElement('li');
       li.innerHTML += `<strong>${findMovie[0].title}: </strong><span>${reviewInput}</span>`;
       ul.append(li);
       form.reset();
     }
+
     document.querySelectorAll('li').forEach((list) => {
       list.addEventListener('click', () => {
         list.remove();
       });
     });
 
-    resetReview.addEventListener('click', () => {
-      ul.innerHTML = '';
-    });
+    resetReview.addEventListener('click', () => {});
   });
 };
 
-/***************************/
-/*  RENDERMOVIEDETAILS FUNCTION */
-/*************************/
+/*********************************/
+/*  RENDERMOVIEDETAILS FUNCTION  */
+/*********************************/
 /**
- * renderMovieDetails renders all the necessary movie description and details
+ * renderMovieDetails displays all description , movie title and the release   * date once the user selects a movie
  * @param {string} BASE_URL -Ghibli app URL
- * @param { select tag} selectMovieTitle - select options dynamically created  * for select tag
+ * @param { select tag} selectMovieTitle - select tag the contains the filmID   * and name of the film selected
  * @param {div tag} movieInfo- display the movie details once user selects the * movie
- * @param {form tag} form - form is used to handle all the input details and   * submit it
- * @param {button tag} resetReview - a button that resets listitems of ul list
- * @param {ul tag}  ullistItem - to access list items in the DOM
- * @param {ol tag} peopleNamesLisst - display the ordered list items
+ * @param {form tag} form - form handles reviews a user inputs and submits it
+ * @param {button tag} resetReview - a button that resets the review list
+ * @param {ul tag}  ullistItem - to display all the reviews for the movie
+ * @param {ol tag} peopleNamesList - display the peopleName associated with the * with the film the user seclected
  * @modifies {string} modifies the DOM
- * @returns - No return
+ * @returns - No returns
  *
  */
 
@@ -153,15 +171,16 @@ const renderMovieDetails = (
   console.log(movies, selectMovieTitle, movieInfo);
   selectMovieTitle.addEventListener('change', (e) => {
     e.preventDefault();
-    // console.log(e.target.value);
+
     movieInfo.innerHTML = '';
+
     const selectedVal = e.target.value;
     let title = document.createElement('h3');
     let release_date = document.createElement('p');
     let description = document.createElement('p');
 
     for (let movie of movies) {
-      if (selectMovieTitle.value === movie.id) {
+      if (selectedVal === movie.id) {
         title.textContent = movie.title;
         release_date.textContent = movie.release_date;
         description.textContent = movie.description;
@@ -175,17 +194,18 @@ const renderMovieDetails = (
 /*  CREATESELECT FUNCTION */
 /*************************/
 /**
- * createSelect fetches data from the api and calls the other appropraite
- * functions in the DOM to display a review, gneerate listItems and
+ * createSelect function fetches data from the api and calls the
+ * renderMovieDetails, writeMovieReviews and showPeopleNames helper functions  * according to the user selection on the app
  * @param {string} BASE_URL -Ghibli app URL
- * @param { select tag} selectMovieTitle - select options dynamically created  * for select tag
+ * @param { select tag} selectMovieTitle - select tag the contains the filmID   * and name of the film selected
  * @param {div tag} movieInfo- display the movie details once user selects the * movie
- * @param {form tag} form - form is used to handle all the input details and   * submit it
- * @param {button tag} resetReview - a button that resets listitems of ul list
- * @param {ul tag}  ullistItem - to access list items in the DOM
- * @param {ol tag} peopleNamesLisst - display the ordered list items
+ * @param {form tag} form - form handles reviews a user inputs and submits it
+ * @param {button tag} resetReview - a button that resets the review list
+ * @param {ul tag}  ullistItem - to display all the reviews for the movie
+ * @param {ol tag} peopleNamesList - display the peopleName associated with the * with the film the user seclected
  * @modifies {string} modifies the DOM
- * @returns - No return
+ * @returns - No returns
+ *
  */
 
 const createSelect = (
@@ -246,6 +266,7 @@ const createSelect = (
 /*  MAIN BODY  */
 /**************/
 
+/** Global variables to access the DOM Elements */
 const BASE_URL = 'https://ghibliapi.herokuapp.com/';
 const selectMovieTitle = document.querySelector('section select');
 const movieInfo = document.querySelector('#display-info');
@@ -263,7 +284,7 @@ const showPeople = document.querySelector('#show-people');
 window.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
 
-  /* generate select options dynamically **/
+  /* A function call to generate select options dynamically **/
 
   createSelect(
     BASE_URL,

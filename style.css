@@ -9,8 +9,7 @@
 body {
   background-color: lavender;
   font-family: monospace;
-  /* max-width: 1200px;
-  width: 100%; */
+  font-size: 1rem;
   grid-template-columns: reepat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
 }
@@ -52,31 +51,40 @@ ul li {
 ol {
   padding-left: 40px;
 }
-.card {
-  margin: 1rem 0;
-  padding: 3rem;
-  background: white;
-  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  background-image: linear-gradient(120deg, #ddc2fb 0%, #a6c1ee 100%);
-  transition: all 0.2s linear;
-}
 
-#show-people{
+#show-people {
   margin: 0.5rem 0;
   padding: 0.2rem;
+  font-size: 1rem;
+}
+#display-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(120deg, #ddc2fb 0%, #a6c1ee 100%);
+  transition: all 0.2s linear;
 }
 
 #display-info h3,
 #display-info p {
   padding: 0.5rem;
+  font-size: 1rem;
 }
 
-#reset-reviews{
+input[type='submit'] {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+#reset-reviews {
+  font-size: 1rem;
   margin: 0.5rem 0;
   padding: 0.2rem;
 }
+
 /*********************/
 /*   MEDIA QUERIES   */
 /*********************/
