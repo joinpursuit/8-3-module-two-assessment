@@ -3,5 +3,7 @@ body {
     font-family: monospace;
 } 
 header {
-    width: 75%;margin: auto;
+    width: 75%;
+    margin: auto;
+    background-color: lightblue
 }
