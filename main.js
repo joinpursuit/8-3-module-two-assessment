@@ -18,7 +18,7 @@ fetch(films_URL)
   });
 
 /**
- * grabMovieData()- function that pulls required data points from each movie( title, year, description) and displays it on the webpage.
+ * grabMovieData()- function that pulls required data points from each movie( title, year, description) and displays it on the webpage. Also sets up the people button functionality.
  * @param {[]object} movies- an array of objects with each one containing all of the movies info(title, release date, people, etc)
  */
 
@@ -33,9 +33,9 @@ const grabMovieData = (movies) => {
   //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
 
   dropdown.addEventListener('change', (event) => {
-    event.preventDefault();
     const chosenID = event.target.value;
-    //console.log(chosenID);
+    //console.log(chosenID);// should be movie id #
+
     for (let movie of movies) {
       if (chosenID === movie.id) {
         info.textContent = '';
@@ -67,7 +67,7 @@ const grabMovieData = (movies) => {
               }
             }
           }
-        })
+        });
     });
   });
 };
