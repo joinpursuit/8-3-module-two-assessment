@@ -120,7 +120,7 @@ resetReviewsButton.addEventListener("click", (event) => {
   reviews.innerHTML = "";
 });
 
-// Event Listener for Show People Buttom
+// Event Listener for Show People Button
 showPeopleButton.addEventListener("click", (event) => {
   event.preventDefault();
 
