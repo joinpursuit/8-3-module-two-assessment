@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./stlye.css" />
+    <script defer src="./main.js"></script>
+  </head>
+  <body id="body">
+    <header id="head1">
+      <h1>Ghibli Review App</h1>
+      <img src="./images/ghibli-logo.png" alt="Ghibli logo" />
+    </header>
+    <main>
+      <section>
+        <h2>Select a Movie</h2>
+        <!-- dropdown -->
+        <select name="" id="dropdown-menu">
+          <option value=""></option>
+        </select>
+      </section>
+      <section>
+        <h2>Add a Review</h2>
+        <form action="submit">
+          <label for="review"> Add a Review</label>
+          <input id="review" type="text" />
+          <input type="submit" Submit />
+        </form>
+      </section>
+      <section>
+        <h2>Movie details</h2>
+        <div id="display-info"></div>
+      </section>
+      <section>
+        <h2>People</h2>
+        <ol></ol>
+        <button id="show-people">Show People</button>
+      </section>
+      <section>
+        <h2>Reviews</h2>
+        <ul></ul>
+        <button id="reset-reviews">Reset Reviews</button>
+      </section>
+    </main>
+  </body>
+</html>
