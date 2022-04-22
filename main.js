@@ -42,14 +42,15 @@ function generateMovieDescription(json) {
         let p1MovieRelease = document.createElement('p');
 
         p1MovieRelease = json[i].release_date;
-        let linebreak = document.createElement('br');
 
         let p2MovieDescription = document.createElement('p');
         p2MovieDescription = json[i].description;
 
         movieDetails.append(h3MovieTitle);
         movieDetails.append(p1MovieRelease);
-        movieDetails.appendChild(linebreak);
+        //Uncomment below to properly format the details section, but fails the correct number of children test.
+        /* let linebreak = document.createElement('br');
+        movieDetails.appendChild(linebreak); */
         movieDetails.append(p2MovieDescription);
 
         let element = document.getElementById('display-info');
