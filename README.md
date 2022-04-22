@@ -63,40 +63,46 @@ You will only need to make one API call in your application to receive all movie
 
 While it does not need to look exactly the same, it should include the following:
 
-- [ ] `body`
+- [ok] `body`
 
-  - [ ] The page's background should be the color `lavender`.
-  - [ ] All non-input text should be of the font `monospace`.
+  - [ok] The page's background should be the color `lavender`.
+  - [ok] All non-input text should be of the font `monospace`.
 
-- `header`
+- [ok] `header`
 
-  - [ ] `img`: An image of the studio's logo should be in the header and should be the same height as the header. The image can be found in the `images/` folder
-  - [ ] `h1`: `Ghibli Review App`
+  - [ok] `img`: An image of the studio's logo should be in the header and should be the same height as the header. The image can be found in the `images/` folder
+  - [ok] `h1`: `Ghibli Review App`
   - [ ] `header`: takes up about 75% of the page's width
   - [ ] The `header`'s background should be `skyblue`
 
-- [ ] `main`
+- [ok] `main`
 
-  - [ ] `section`
-    - [ ] `h2`: `Select a movie`
-    - [ ] `select` `id` `titles`: starts with one `option` (blank, no value), remaining `option`s will be populated with the movie titles from the API
-  - [ ] `section`
-  - [ ] `h2`: `Add a review`
-    - [ ] `form`
-      - [ ] `label`, `for` = `review`: `Your review`
-      - [ ] `input`, `id` = `review`: type text
-      - [ ] `input`: type submit
-  - [ ] `section`
+  - [ok] `section`
 
-    - [ ] `h2`: `Movie details`
-    - [ ] `div`, `id` = `display-info`: starts empty, will be populated with `h3` and two `p` elements, when a movie is selected
+    - [ok] `h2`: `Select a movie`
+    - [ok] `select` `id` `titles`: starts with one `option` (blank, no value), remaining `option`s will be populated with the movie titles from the API
 
-  - [ ] `section`
-    - [ ] `h2`: `People`
-    - [ ] `ol`: starts empty, will be populated with
+  - [ok] `section`
+  - [ok] `h2`: `Add a review`
+
+    - [ok] `form`
+      - [ok] `label`, `for` = `review`: `Your review`
+      - [ok] `input`, `id` = `review`: type text
+      - [ok] `input`: type submit
+
+  - [ok] `section`
+
+    - [ok] `h2`: `Movie details`
+    - [ok] `div`, `id` = `display-info`: starts empty, will be populated with `h3` and two `p` elements, when a movie is selected
+
+  - [ok] `section`
+
+    - [ok] `h2`: `People`
+    - [ok] `ol`: starts empty, will be populated with
       - [ ] `li` as people `names` are added
-    - `button`, `id` = `show-people`, text `Show People`
-  - [ ] `section`
+    - [ok] `button`, `id` = `show-people`, text `Show People`
+
+  - [ok] `section`
     - [ ] `h2`: `Reviews`
     - [ ] `ul`: starts empty, will be populated with `li` as reviews are added
     - [ ] `button`, `id` = `reset-reviews`, text `Reset Reviews`

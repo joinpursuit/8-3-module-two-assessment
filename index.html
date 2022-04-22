@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style.css">
     <title>Ghibli Review App</title>
 </head>
 <body>
     <header>
         <section>
-            <img src="./images/ghibli-logo.png" alt="Ghibli logo" srcset="">
+            <img src="./images/ghibli-logo.png" alt="Ghibli logo" class="logo">
             <h1>Ghibli Review App</h1>
         </section>
     </header>
@@ -18,16 +20,8 @@
         <section>
             <h2>Select a movie</h2>
             <select name="" id="titles">
-                <option value="">Select a title</option>
+                <option></option>
             </select>
-        </section>
-        <section>
-            <h2>Add a review</h2>
-            <form action="">
-                <label for="review">Your review</label>
-                <input id="review" type="text">
-                <input type="submit" value="">
-            </form>
         </section>
         <section>
             <h2>Movie details</h2>
@@ -35,12 +29,20 @@
         </section>
         <section>
             <h2>People</h2>
-            <ol></ol>
+            <ol id="people-list"></ol>
             <button id="show-people">Show People</button>
         </section>
         <section>
+            <h2>Add a review</h2>
+            <form id="movie-reviews" action="">
+                <label for="review">Your review</label>
+                <input id="review" type="text" >
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+        <section>
             <h2>Reviews</h2>
-            <ul></ul>
+            <ul id="review-list"></ul>
             <button id="reset-reviews">Reset Reviews</button>
         </section>
     </main>
