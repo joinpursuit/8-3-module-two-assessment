@@ -13,10 +13,10 @@ header section .logo {
     width: 100%;margin: 0;
 }
 header section h1 {
-    text-align: right;font-size: 3rem;line-height: 5.5rem;
+    margin-right: 10px;text-align: right;font-size: 3rem;line-height: 5.5rem;
 }
 main {
-    padding: 1rem 0;display: grid;grid-template-columns: 1fr 4fr 1fr;gap: 0px;
+    padding: 2rem 0;display: grid;grid-template-columns: 1fr 4fr 1fr;gap: 0px;
 }
 main section {
     padding: 2.4rem;margin: 0rem 0;
@@ -40,6 +40,7 @@ main section:nth-child(5) {
 main section h2 {
     padding: 0rem;margin: 1rem 0;font-size: 1.8rem;font-weight: 800;border-radius: 5px;color: #1d3557;
 }
+main section h2 i {display: block !important;margin: 1rem auto;font-size: 3rem;}
 main section ul, main section ol {
     margin: auto;display: inline-grid; text-align: justify;
 }
@@ -56,7 +57,7 @@ input, select {
     padding: 0.6rem;border-radius: 5px;font-size: 1.2rem;font-weight: 600;border-radius: 5px;border: none !important;color: #3C3C3C !important;
 }
 button, input[type='submit'] {
-    padding: 0.6rem 1rem;border-radius: 5px;font-size: 1.2rem;font-weight: 800; background-color: #457b9d;color: #e9ecef !important;
+    padding: 0.6rem 1.6rem;border-radius: 5px;font-size: 1.2rem;font-weight: 800; background-color: #457b9d;color: #e9ecef !important;
     border: none !important;border-radius: 5px;
 }
 input[type='submit'] {
@@ -78,6 +79,11 @@ input[type='submit']:hover {
 #display-info p:nth-of-type(2) {
     font-weight: 400;text-align: justify;
 }
+#review-list {}
+#review-list li {
+    font-size: 1.4rem;line-height: 2.0rem;font-weight: 400;color: #006d77;
+}
+#review-list li b {}
 .error {
     padding: 2rem 4rem;margin: 2rem auto;display: table;font-size: 1rem;font-weight: 600;background: var(--error);color: #fefefe;border-radius: 2px;
 }
