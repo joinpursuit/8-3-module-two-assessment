@@ -1,13 +1,13 @@
-const base_URL = 'https://ghibliapi.herokuapp.com/films/';
-const people_URL = 'https://ghibliapi.herokuapp.com/people';
+const films_URL = 'https://ghibliapi.herokuapp.com/films/';
+const people_URL = 'https://ghibliapi.herokuapp.com/people/';
 const dropdown = document.getElementById('movie-dropdown');
 const info = document.getElementById('display-info');
 const reviewForm = document.querySelector('form');
 const ul = document.querySelector('ul');
 const peopleButton = document.getElementById('show-people');
+const peopleNames = document.querySelector('ol');
 
-
-fetch(base_URL)
+fetch(films_URL)
   .then((res) => res.json())
   .then((movies) => {
     grabMovieData(movies);
@@ -29,14 +29,15 @@ const grabMovieData = (movies) => {
     option.textContent = movie.title;
     dropdown.append(option);
   });
-  
-//https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+
+  //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
 
   dropdown.addEventListener('change', (event) => {
     event.preventDefault();
-    const chosen = event.target.value;
+    const chosenID = event.target.value;
+    //console.log(chosenID);
     for (let movie of movies) {
-      if (chosen === movie.id) {
+      if (chosenID === movie.id) {
         info.textContent = '';
         const h3 = document.createElement('h3');
         info.prepend(h3);
@@ -51,6 +52,23 @@ const grabMovieData = (movies) => {
         p2.textContent = movie.description;
       }
     }
+    peopleButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      fetch(people_URL)
+        .then((res) => res.json())
+        .then((people) => {
+          peopleNames.innerHTML = '';
+          for (let person of people) {
+            for (let film of person.films) {
+              if (film === `${films_URL}${chosenID}`) {
+                let personLi = document.createElement('li');
+                personLi.textContent = person.name;
+                peopleNames.append(personLi);
+              }
+            }
+          }
+        })
+    });
   });
 };
 
@@ -64,7 +82,7 @@ function getReviews(movies) {
     event.preventDefault();
     let reviewInput = document.getElementById('review').value;
     if (dropdown.value === '') {
-      alert('Please select a movie first');// hint by Myra on Zoom
+      alert('Please select a movie first'); // hint by Myra on Zoom
     } else {
       let movie = movies.find((movie) => movie.id === dropdown.value);
       let li = document.createElement('li');
@@ -81,57 +99,3 @@ resetReviewsButton.addEventListener('click', (event) => {
   event.preventDefault();
   ul.innerHTML = '';
 });
-
-//__________________________________________________
-// 1st try all in 1 fetch*
-//
-// fetch(base_URL)
-//   .then((response) => response.json())
-//   .then((movies) => {
-//     for (let movie of movies) {
-//       let option = document.createElement('option');
-//       option.value = movie.id;
-//       option.textContent = movie.title;
-//       dropdown.append(option);
-//     }
-//     //https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedIndex
-//     //https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/options
-
-//     dropdown.addEventListener('change', (event) => {
-//       movies.forEach((movie) => {
-//         const filmName =
-//           event.target.options[event.target.selectedIndex].textContent;
-
-//         const input = event.target.value;
-//         if (input === movie.id) {
-//           info.textContent = '';
-//           const h3 = document.createElement('h3');
-//           info.prepend(h3);
-//           h3.textContent = movie.title;
-
-//           const p1 = document.createElement('p');
-//           info.append(p1);
-//           p1.textContent = movie.release_date;
-
-//           const p2 = document.createElement('p');
-//           info.append(p2);
-//           p2.textContent = movie.description;
-//         }
-//         reviewForm.addEventListener('submit', (event) => {
-//           event.preventDefault();
-//           const listItem = document.createElement('li');
-//           ul.append(listItem);
-//           listItem.innerHTML = `<strong><b>${filmName}:</strong></b> ${event.target.review.value}`;
-
-//           event.target.reset();
-//         });
-//       });
-//     });
-//   });
-
- function grabPeople(movies){
-  peopleButton.addEventListener('click', (event) => {
-      event.preventDefault();
-
-  })
- }
