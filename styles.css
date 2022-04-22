@@ -1,16 +1,22 @@
-body {
-    display: flexbox;
+body {  
+    display: grid;
     background-color: lavender;
     font-family: monospace;
+    max-width: 1200px;
+    margin: auto;
 }
 
 header{
+    display: inline-flex;
     width: 75%;
+    height: 120px;
     background-color: skyblue;
 text-align: right;
-
 }
+ img { display: inline-flex;
+    height: 120px;
 
+ }
 
 button {
     border-top-left-radius:10px;
