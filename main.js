@@ -1,55 +1,52 @@
-const URL = "https://ghibliapi.herokuapp.com/films";
+const URLfilms = "https://ghibliapi.herokuapp.com/films";
+const URLpeople = "https://ghibliapi.herokuapp.com/people";
 let select = document.getElementById("titles");
-let reviewList = document.querySelector("section ul");
-let peopleList = document.querySelector("section ol");
-console.log(select);
 
-fetch(URL)
+fetch(URLfilms)
   .then((res) => res.json())
   .then((films) => {
     films.forEach((film) => populateTitles(film));
-    selectedFilmInfo(films);
-
-    let reviewForm = document.querySelector("section form");
-    reviewForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      boldElement = document.createElement("strong");
-      boldElement.textContent =
-        document.querySelector("section div h3").textContent;
-      let newReview = document.createElement("li");
-      newReview.textContent = event.target.review.value;
-      newReview.prepend(boldElement);
-      reviewList.append(newReview);
-      event.target.reset();
-    });
+    populateMovieDetails(films);
+    reviewByTitle(films);
   })
   .catch((error) => {
     console.log(error);
   });
 
-let resetReviews = document.getElementById("reset-reviews");
-resetReviews.addEventListener("click", (e) => {
-  e.preventDefault();
-  while (reviewList.firstChild) {
-    reviewList.removeChild(reviewList.firstChild);
-  }
-});
+fetch(URLpeople)
+  .then((res) => res.json())
+  .then((people) => {
+    populatePeople(people, select);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-populateTitles = (film) => {
+let populateTitles = (film) => {
   let option = document.createElement("option");
   option.textContent = film.title;
   option.value = film.id;
   select.append(option);
 };
 
-selectedFilmInfo = (filmObj) => {
+let deleteAll = (element) => {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
+let resetReviews = document.getElementById("reset-reviews");
+resetReviews.addEventListener("click", (e) => {
+  e.preventDefault();
+  deleteAll(reviewList);
+});
+
+let populateMovieDetails = (filmsArray) => {
   let displayInfo = document.getElementById("display-info");
   select.addEventListener("change", (event) => {
     event.preventDefault();
-    let film = filmObj.find(({ id }) => id === event.target.value);
-    displayInfo.textContent = "";
-    listOfNames = document.querySelector("section ol");
-    listOfNames.textContent = "";
+    let film = filmsArray.find(({ id }) => id === event.target.value);
+    deleteAll(displayInfo);
     let title = document.createElement("h3");
     title.textContent = film.title;
     let year = document.createElement("p");
@@ -57,17 +54,37 @@ selectedFilmInfo = (filmObj) => {
     let info = document.createElement("p");
     info.textContent = film.description;
     displayInfo.append(title, year, info);
-    arrayOfPeopleURLs = film.people;
-    fetch(`https://ghibliapi.herokuapp.com/people`)
-      .then((res) => res.json())
-      .then((people) => {
-        people.forEach((person) => {
-          if (person.films[0].includes(film.id)) {
-            newName = document.createElement("li");
-            newName.textContent = person.name;
-            listOfNames.append(newName);
-          }
-        });
-      });
+  });
+};
+
+const reviewByTitle = (filmsArray) => {
+  let reviewForm = document.querySelector("section form");
+  let reviewList = document.querySelector("section ul");
+  reviewForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let film = filmsArray.find(({ id }) => id === `${select.value}`);
+    let boldElement = document.createElement("strong");
+    boldElement.textContent = film.title;
+    let newReview = document.createElement("li");
+    newReview.textContent = event.target.review.value;
+    newReview.prepend(boldElement);
+    reviewList.append(newReview);
+    event.target.reset();
+  });
+};
+
+const populatePeople = (people, id) => {
+  let peopleList = document.querySelector("section ol");
+  let showPeopleButton = document.getElementById("show-people");
+  showPeopleButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteAll(peopleList);
+    people.forEach((person) => {
+      if (id && person.films[0].includes(`${id.value}`)) {
+        newName = document.createElement("li");
+        newName.textContent = person.name;
+        peopleList.append(newName);
+      }
+    });
   });
 };

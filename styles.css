@@ -6,4 +6,13 @@ body {
 
 header{
     background-color: skyblue;
+    padding: 20;
+}
+
+header h1{
+    float: right;
+}
+
+header img {
+    width: 300px;
 }
