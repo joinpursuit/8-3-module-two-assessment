@@ -5,8 +5,9 @@ body {
 
 header {
     width: 75%;
-    margin: auto;
+    margin: 0 auto;
     background-color: skyblue;
+    
 }
 
 h1 {
@@ -16,7 +17,9 @@ h1 {
 img {
     grid-column-start: 1;
     grid-column-end: 2;
-    width: 75%;
+    width: 75;
+    height: 250px;
+    
 }
 
 main {
