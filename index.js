@@ -1,10 +1,5 @@
 const BASE_URL = "https://ghibliapi.herokuapp.com/films";
 
-// const submitReviewForm = document.querySelector("#submitReviewForm");
-// submitReviewForm.addEventListener("submit", (e) => {
-//   e.preventDefault();
-// });
-
 fetch(BASE_URL)
   .then((response) => response.json())
   .then((json) => {
@@ -38,9 +33,11 @@ const displayMovie = (movieTitles, movieList) => {
   const movieYear = document.createElement("p");
   const movieDescription = document.createElement("p");
   movieDescription.classList.add("movieDescription");
+  const peopleList = document.querySelector("#peopleList");
 
   movieTitles.addEventListener("change", () => {
     let movieName = movieTitles.options[movieTitles.selectedIndex].textContent;
+    peopleList.innerHTML = "";
 
     for (const movieInfo of movieList) {
       if (movieName === movieInfo.title) {
@@ -54,9 +51,9 @@ const displayMovie = (movieTitles, movieList) => {
         movieDescription.textContent = "";
       }
     }
-
     displayInfo.append(movieTitle, movieYear, movieDescription);
     submitReviewFunc(movieName);
+    showPeople(movieName, movieList);
   });
 };
 
@@ -65,35 +62,58 @@ const submitReviewFunc = (movieName) => {
   const reviewsList = document.querySelector("#reviewsList");
   const review = document.querySelector("#review");
   review.setAttribute("value", review.value);
-
   const resetReviews = document.querySelector("#reset-reviews");
 
-  if (movieName !== "") {
+  submitReviewForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
     const li = document.createElement("li");
-    let reviewText = "";
-    review.addEventListener("change", () => {
-      reviewText = review.value;
-    });
-    li.innerHTML = `<strong>${movieName}:</strong> ${reviewText}`;
+    let reviewText = `${movieName}: ${review.value}`;
 
-    submitReviewForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      reviewsList.append(li);
-
-      submitReviewForm.reset();
-    });
-  } else if (movieName === "") {
-    submitReviewForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      alert("Please select a movie first.");
-    });
-  }
+    li.append(reviewText);
+    reviewsList.append(li);
+    submitReviewForm.reset();
+  });
 
   resetReviews.addEventListener("click", (e) => {
     e.preventDefault();
 
     reviewsList.innerHTML = "";
+  });
+};
+
+const showPeople = (movieName, movieList) => {
+  const peopleList = document.querySelector("#peopleList");
+  const showPeopleBtn = document.querySelector("#show-people");
+  const peopleArr = [];
+
+  for (const movieInfo of movieList) {
+    if (movieName === movieInfo.title) {
+      for (const people of movieInfo.people) {
+        fetch(people)
+          .then((response) => response.json())
+          .then((json) => {
+            const { name } = json;
+            peopleArr.push(name);
+          })
+          .catch((e) => {
+            errors(e);
+          });
+      }
+    }
+  }
+  showPeopleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (peopleArr.length > 0) {
+      for (const person of peopleArr) {
+        const li = document.createElement("li");
+        li.append(person);
+        peopleList.append(li);
+      }
+    } else {
+      let noPeople = "This film has no people.";
+      peopleList.append(noPeople);
+    }
   });
 };
