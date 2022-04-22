@@ -81,3 +81,8 @@ function resetReviews() {
     document.querySelectorAll("ul li").forEach((item) => item.remove());
   });
 }
+
+// function alertingUser () {
+//     const selectionField = document.getElementById("movieTitles")
+//     if()
+// }

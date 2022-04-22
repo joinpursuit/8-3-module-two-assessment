@@ -2,3 +2,37 @@
     background-color: rgb(230, 230, 250);
     font-family: monospace;
 }
+
+#header {
+    display: grid;
+    background-color: lightskyblue;
+    grid-template-columns: 50% 50%;
+    margin-right: 250px;
+    margin-left: 250px;
+}
+
+#image {
+    width: 400px;
+    height: auto;
+    text-align: right;
+}
+
+#title {
+    text-align: center;
+}
+
+#main {
+    display: grid;
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+h1#title {
+    text-align: right;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+#display-info {
+
+}
