@@ -68,5 +68,6 @@ function getReviews(json) {
       ul.append(li);
     }
     reviewForm.reset();
-  });
+
+});
 }
