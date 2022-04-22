@@ -1,6 +1,7 @@
 const URLfilms = "https://ghibliapi.herokuapp.com/films";
 const URLpeople = "https://ghibliapi.herokuapp.com/people";
 let select = document.getElementById("titles");
+let peopleList = document.querySelector("section ol");
 
 fetch(URLfilms)
   .then((res) => res.json())
@@ -35,12 +36,6 @@ let deleteAll = (element) => {
   }
 };
 
-let resetReviews = document.getElementById("reset-reviews");
-resetReviews.addEventListener("click", (e) => {
-  e.preventDefault();
-  deleteAll(reviewList);
-});
-
 let populateMovieDetails = (filmsArray) => {
   let displayInfo = document.getElementById("display-info");
   select.addEventListener("change", (event) => {
@@ -53,6 +48,7 @@ let populateMovieDetails = (filmsArray) => {
     year.textContent = film.release_date;
     let info = document.createElement("p");
     info.textContent = film.description;
+    deleteAll(peopleList);
     displayInfo.append(title, year, info);
   });
 };
@@ -63,18 +59,21 @@ const reviewByTitle = (filmsArray) => {
   reviewForm.addEventListener("submit", (event) => {
     event.preventDefault();
     let film = filmsArray.find(({ id }) => id === `${select.value}`);
-    let boldElement = document.createElement("strong");
-    boldElement.textContent = film.title;
-    let newReview = document.createElement("li");
-    newReview.textContent = event.target.review.value;
-    newReview.prepend(boldElement);
-    reviewList.append(newReview);
-    event.target.reset();
+    if (film) {
+      let boldElement = document.createElement("strong");
+      boldElement.textContent = film.title;
+      let newReview = document.createElement("li");
+      newReview.textContent = `: ${event.target.review.value}`;
+      newReview.prepend(boldElement);
+      reviewList.append(newReview);
+      event.target.reset();
+    } else {
+      alert("you must choose a film");
+    }
   });
 };
 
 const populatePeople = (people, id) => {
-  let peopleList = document.querySelector("section ol");
   let showPeopleButton = document.getElementById("show-people");
   showPeopleButton.addEventListener("click", (e) => {
     e.preventDefault();
@@ -88,3 +87,10 @@ const populatePeople = (people, id) => {
     });
   });
 };
+
+let resetReviews = document.getElementById("reset-reviews");
+let reviewList = document.querySelector("section ul");
+resetReviews.addEventListener("click", (e) => {
+  e.preventDefault();
+  deleteAll(reviewList);
+});
