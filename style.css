@@ -78,7 +78,6 @@ input[type='submit']:hover {
 #display-info p:nth-of-type(2) {
     font-weight: 400;text-align: justify;
 }
-
 .error {
     padding: 2rem 4rem;margin: 2rem auto;display: table;font-size: 1rem;font-weight: 600;background: var(--error);color: #fefefe;border-radius: 2px;
 }

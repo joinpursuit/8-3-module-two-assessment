@@ -14,7 +14,7 @@ getAllMovieTitles(BASE_URL);
 
 /**
  * ==================================
- * E V E N T  L I S T E N E R S
+ * E V E N T   L I S T E N E R S
  * ==================================
  * 
  * ============
@@ -36,7 +36,8 @@ selectTitles.addEventListener('change', function () {
 formReviews.addEventListener('submit', function (event) {
     event.preventDefault();
     const { review } = event.target;
-    // >> Validating if a movie was actually selected, plus if a review was actually written  
+    // >> Validating if a movie title was in fact selected, plus 
+    // >> As a second validation if a review was in fact written  
     if(currentMovie === ''){
         alert('Please select a movie first')
     }
@@ -74,9 +75,10 @@ btnShowPeople.addEventListener('click', function () {
  * ==================================
  * function >> getAllMovieTitles()
  * ==================================
- * Given a url as parameter, excutes a fetch to get the data
- * @param {string} url - A number that represents a temperature.
- * @returns {} No specific return.
+ * Given a url as parameter, excutes a request to get all the movies from the API, if the request is successful
+ * then proceed to fill out a html select element with all the movie titles.
+ * @param {string} url - A string that represents an url with all the movies.
+ * @returns {} No returns a value.
  */
 function getAllMovieTitles(url){
     fetch(url)
@@ -91,8 +93,8 @@ function getAllMovieTitles(url){
         });
     })
     .catch((error) => {
-        // >> generateErrorMessage()
-        console.log(error);
+        const message = createErrorMessage(error);
+        document.querySelector("main").append(message);
     });
 }
 
@@ -100,20 +102,19 @@ function getAllMovieTitles(url){
  * ==================================
  * function >> renderMovieDescription()
  * ==================================
- * Given an id from a movie as parameter, gets some respective data like: title, realese year and description 
+ * Given a movie id as parameter, gets the respective data like: title, release year and description 
  * @param {string} movie - A string that represents the id movie identifier .
- * @returns {} No specific return. 
+ * @returns {} No returns a value. 
  */
 function renderMovieDescription(movie) {
-    // >>
+    // >> Creating instances of html elements
     const movieInfo        = document.querySelector('#display-info'),
           movieTitle       = document.createElement('h3'),
           movieRelease     = document.createElement('p'),
           movieDescription = document.createElement('p');
-    // >> Refresh the data
+    // >> Validating if there are child nodes, in that case proceed to remove them to refresh the data
     if(movieInfo.hasChildNodes){
         removeNodes(movieInfo)
-        //movieInfo.querySelectorAll('*').forEach(node => node.remove());
     }
     // >> Looping through the local stored data
     movies.forEach(element => {
@@ -130,9 +131,9 @@ function renderMovieDescription(movie) {
  * ==================================
  * function >> addMovieReview()
  * ==================================
- * Given a review created by the user, it updates the list of reviews
- * @param {string} review - A string that represents a review inputted through the review form.
- * @returns {} No specific return. 
+ * Given a review written by the user, it proceeds to appended it to the list of reviews
+ * @param {string} review - A string that represents a review inputted through the reviews form.
+ * @returns {} No returns a value. 
  */
 function addMovieReview(review){
     const reviewList = document.getElementById('review-list'),
@@ -151,14 +152,14 @@ function addMovieReview(review){
  * ==================================
  * function >> getPeopleByMovie()
  * ==================================
- * Given an id movie gets the people asscoiated with it   
- * @param {string} id - A string that represents a review inputted through the review form.
- * @returns {} No specific return. 
+ * Given a movie id then proceeds to get all the people asscoiated with it.  
+ * @param {string} id - A string that represents a movie id.
+ * @returns {} No returns a value. 
  */
 function getPeopleByMovie(id) {
     movies.forEach(movie => {
         if(movie.id == id){
-            // >> Getting the array with all the people url's associated to the movie
+            // >> Getting the people url's array associated a its respective movie.
             getPeopleName(movie.people)
         }
     })
@@ -170,11 +171,11 @@ function getPeopleByMovie(id) {
  * ==================================
  * Given a respective url person executes a call to the API to get the data from the all the people
  * associated to a every movie
- * @param {string} people - A string that represents the API url with the people id
- * @returns {} No specific return. 
+ * @param {string} people - A string that represents a person url to get its respective data from the API.
+ * @returns {} No returns a value. 
  */
 function getPeopleName(people) {
-    // >> Fetch data from the people
+    // >> Executes a new fetch to get the data of every person
     people.forEach(url => {
         fetch(url)
         .then((response) => response.json())
@@ -186,16 +187,40 @@ function getPeopleName(people) {
             }else{
                 item.innerText = 'There is not people associated with the movie';
             }
-            // >> Adding every list item to the list    
+            // >> Adding every list item with the names to the list    
             listPeople.appendChild(item)
         })
         .catch((error) => {
-            // >> generateErrorMessage()
-            console.log(error);
+            const message = createErrorMessage(error);
+            document.querySelector("main").append(message);
         });
     })
 }
 
+/**
+ * ==================================
+ * function >> removeNodes()
+ * ==================================
+ * Given a html element parent proceeds to select all the childs, then executes a loop to remove all of them. 
+ * @param {string} parent - A string that represents a parent html element.
+ * @returns {} No returns a value. 
+ */
 function removeNodes(parent) {
     parent.querySelectorAll('*').forEach(node => node.remove());
+}
+
+/**
+ * ==================================
+ * function >> createErrorMessage()
+ * ==================================
+ * Gets a specific error generated by the catch method as a result of a request to the API.
+ * @param {string} message - A string that represents an error message.
+ * @returns {string} Returns a string that represents a HTML element with an error message.
+ */
+ function createErrorMessage(message) {
+    const section = document.createElement("section");
+    section.classList.add("error");
+    section.innerHTML = `<p>There was an error!</p><p class="message">${message}</p>`
+  
+    return section;
 }
