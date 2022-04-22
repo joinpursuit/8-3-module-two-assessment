@@ -33,10 +33,10 @@ const getFilms = (response) => {
 
         reviewForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            if (!titles.value) {
+            const text = document.getElementById('review');
+            if (!titles.value || !text.value) {
                 window.alert('Please select a movie first');                
             } else {
-                const text = document.getElementById('review');
                 const reviewList = document.querySelector('ul');
                 const review = document.createElement('li');
 
