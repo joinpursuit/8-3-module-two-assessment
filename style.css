@@ -96,6 +96,8 @@ input[type='submit'] {
   }
   header {
     max-width: 900px;
+    margin:0 15rem;
+    text-align:center;
     width: 100%;
   }
   .header-image {
