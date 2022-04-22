@@ -30,14 +30,35 @@ const getFilms = (response) => {
         year.textContent = match.release_date;
         description.textContent = match.description;
 
+        const reviewForm = document.querySelector('form')
+
+        reviewForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+            const text = document.getElementById('review')
+            if (!titles.value){
+                window.alert("Please select a movie first") 
+            } else if (!text.value){
+                window.alert("Please write a review first")
+            } else {
+                const reviewList = document.querySelector('ul')
+                const review = document.createElement('li')
+                
+                review.innerHTML = `<strong>${title.textContent}: </strong><span>${text.value}</span>`
+                reviewList.append(review)
+                reviewForm.reset()
+            }
+        })
+
     fetch(`https://ghibliapi.herokuapp.com/films/${titles.value}`)
         .then((response) => {
             return response.json();
         })
         .then((response) => {
-            let film = response.people
-            for (let people of film){
-                fetch(`${people}`)
+            const listOfPeople = document.querySelector('ol')
+            listOfPeople.innerHTML = ''
+            let people = response.people
+            for (let person of people){
+                fetch(`${person}`)
                 .then((response) => {
                     return response.json();
                   })
@@ -51,34 +72,29 @@ const getFilms = (response) => {
 };
 
 const getPeople = (response) => {
+    const listOfPeople = document.querySelector('ol')
     const name = document.createElement('li')
-    name.textContent = response
+    const error = document.createElement('p')
+
+    if (response){
+        name.textContent = response
+        name.setAttribute('style', 'display:none')
+        listOfPeople.append(name)
+    } else {
+        error.textContent = "The list of people for this film has not been added."
+        error.setAttribute('style', 'display:none')
+        listOfPeople.append(error)
+    }
 
     const peopleButton = document.getElementById("show-people")
 
     peopleButton.addEventListener('click', (event) => {
         event.preventDefault()
-        const listOfPeople = document.querySelector('ol')
-        listOfPeople.append(name)
+        error.removeAttribute('style')
+        name.removeAttribute('style')
     })
 }
 
-const reviewForm = document.querySelector('form')
-
-reviewForm.addEventListener('submit', (event) => {
-    event.preventDefault()
-    if (!title.textContent){
-        alert("Please select a movie first")
-    } else {
-        const text = document.getElementById('review')
-        const reviewList = document.querySelector('ul')
-        const review = document.createElement('li')
-        
-        review.innerHTML = `<strong>${title.textContent}: </strong><span>${text.value}</span>`
-        reviewList.append(review)
-    }
-    reviewForm.reset()
-})
 
 const resetButton = document.getElementById('reset-reviews')
 
