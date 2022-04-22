@@ -55,6 +55,8 @@ const displayMovie = (movieTitles, movieList) => {
     let movieName = movieTitles.options[movieTitles.selectedIndex].textContent;
     const listOfPeople = document.querySelector("#listOfPeople");
     listOfPeople.innerHTML = "";
+    const showPeopleBtn = document.querySelector("#show-people");
+    showPeopleBtn.textContent = "Show People";
 
     for (const movieInfo of movieList) {
       if (movieName === movieInfo.title) {
@@ -88,11 +90,15 @@ const submitReviewFunc = (movieTitles) => {
     e.preventDefault();
 
     if (movieName) {
-      const li = document.createElement("li");
-      li.innerHTML = `<strong>${movieName}:</strong> ${review.value}`;
+      if (review.value !== "") {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${movieName}:</strong> ${review.value}`;
 
-      reviewsList.append(li);
-      submitReviewForm.reset();
+        reviewsList.append(li);
+        submitReviewForm.reset();
+      } else {
+        alert("Your review cannot be empty");
+      }
     } else {
       alert("Please select a movie first");
     }
@@ -118,16 +124,23 @@ const showPeople = (movieTitles, peopleList) => {
   showPeopleBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    listOfPeople.innerHTML = "";
+    if (showPeopleBtn.textContent === "Show People") {
+      listOfPeople.style.display = "block";
+      listOfPeople.innerHTML = "";
 
-    for (const person of peopleList) {
-      for (const filmID of person.films) {
-        if (filmID.includes(movieID)) {
-          const li = document.createElement("li");
-          li.textContent = person.name;
-          listOfPeople.append(li);
+      for (const person of peopleList) {
+        for (const filmID of person.films) {
+          if (filmID.includes(movieID)) {
+            const li = document.createElement("li");
+            li.textContent = person.name;
+            listOfPeople.append(li);
+          }
         }
       }
+      showPeopleBtn.textContent = "Hide People";
+    } else if (showPeopleBtn.textContent === "Hide People") {
+      showPeopleBtn.textContent = "Show People";
+      listOfPeople.style.display = "none";
     }
   });
 };
