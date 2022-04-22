@@ -1,14 +1,52 @@
-body {
-    background-color: lavender;
-    font-family: monospace;
+.border {
+    border: 2px solid black;
 }
 
 header {
     background-color: skyblue;
     width: 75%;
-    margin: auto
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
 }
 
 img {
-    height: 200px;
+    height: 90px;
+}
+
+h1 {
+    width: 75%;
+    margin: auto;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+body {
+    background-color: lavender;
+    font-family: monospace;
+}
+
+section {
+    width: 75%;
+    margin: auto;
+    border: 2px solid black;
+}
+
+.select,
+.review {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 2fr 6fr 2fr;
+}
+
+label {
+    text-align: center;
+    font-weight: bold;
 }
