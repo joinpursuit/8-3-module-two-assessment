@@ -1,0 +1,49 @@
+body {
+    background-color: lavender;
+    font-family: monospace;
+  }
+  
+  header {
+    display: grid;
+    grid-template-areas:
+      "logo header header"
+      "logo . .";
+    width: 75vw;
+    margin: 0 auto;
+    height: 200px;
+    background-color: skyblue;
+  }
+  
+  main {
+    width: 75vw;
+    margin: 0 auto;
+  }
+  
+  img {
+    height: 200px;
+  }
+  
+  #dropdown {
+    margin-left: 90px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  #display-info {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  
+  form {
+    margin-left: 65px;
+    margin-top: 65px;
+  }
+  
+  #submitbtn {
+    width: 200px;
+  }
+  
+  #userInput {
+    width: 200px;
+  }
+  
