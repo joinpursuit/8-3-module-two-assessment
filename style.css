@@ -44,22 +44,39 @@ section {
   margin-top: 2rem;
 }
 
-li {
+ul li {
   padding: 10px;
   font-family: monospace;
   list-style-type: '👉';
 }
-
+ol {
+  padding-left: 40px;
+}
 .card {
-  margin:1rem 0;
-    padding: 3rem;
-    background: white;
-    box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    background-image: linear-gradient(120deg, #ddc2fb 0%, #a6c1ee 100%);
-    transition: all 0.2s linear;
-  }
+  margin: 1rem 0;
+  padding: 3rem;
+  background: white;
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background-image: linear-gradient(120deg, #ddc2fb 0%, #a6c1ee 100%);
+  transition: all 0.2s linear;
+}
+
+#show-people{
+  margin: 0.5rem 0;
+  padding: 0.2rem;
+}
+
+#display-info h3,
+#display-info p {
+  padding: 0.5rem;
+}
+
+#reset-reviews{
+  margin: 0.5rem 0;
+  padding: 0.2rem;
+}
 /*********************/
 /*   MEDIA QUERIES   */
 /*********************/
