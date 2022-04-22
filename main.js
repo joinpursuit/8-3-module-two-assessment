@@ -1,5 +1,4 @@
 let select = document.querySelector('select')
-let dropdown = document.getElementById('title')
 let option = document.querySelector('option')
 let selectoption = document.querySelectorAll('option')
 let div = document.querySelector('div')
@@ -11,15 +10,22 @@ let ul = document.querySelector('ul')
 let button = document.getElementById('reset-reviews')
 let list = document.querySelectorAll('li')
 
-console.log(select.value)
 
 let Base_Url = 'https://ghibliapi.herokuapp.com/'
 let film = 'films'
+let people = 'people'
 
+
+/**
+ * selectMovieTitle is helper higher order function that selects movie title from the dropdown 
+ * @param {object[]} movies - is api of array of objects
+ */
 const selectMovieTitle = (movies) => {
-  let array = []
+    let array = []
+ 
   movies.forEach((movie) => {
-    array.push(movie.title)
+      array.push(movie.title)
+  
   })
 
   array.sort((a, b) => {
@@ -41,6 +47,12 @@ const selectMovieTitle = (movies) => {
   })
 }
 
+
+/**
+ * description is helper higher order function that select options to view movie information in movie details
+ * @param {object[]} movies - is api of array of objects
+ */
+ 
 const description = (movies) => {
   let object = {}
 
@@ -59,6 +71,7 @@ const description = (movies) => {
   })
 }
 
+//api fetch 
 fetch(`${Base_Url}${film}`)
   .then((response) => response.json())
   .then((json) => {
@@ -66,24 +79,24 @@ fetch(`${Base_Url}${film}`)
   })
   .catch((error) => console.log(error))
 
-//alert when user start to input comment.window alert pop up
-// if there is no movie
 
+// error handling for reviews and add reviews
 form.addEventListener('submit', (event) => {
   event.preventDefault()
 
-  if (dropdown.value === '') {
-   alert("Please select movie first")
-  } else {
-    let li = document.createElement('li')
-    ul.append(li)
-
-    li.innerHTML = `<b>${h3.textContent}:</b> ${text.value}`
-     form.reset()
+  if (select.value === '') {
+    alert('Please select movie first')
+    form.reset()
   }
-   
+  let li = document.createElement('li')
+  ul.append(li)
+
+  li.innerHTML = `<b>${h3.textContent}:</b> ${text.value}`
+
+  form.reset()
 })
 
+//reset button to empty content of ul
 button.addEventListener('click', () => {
   ul.remove(list)
 })
