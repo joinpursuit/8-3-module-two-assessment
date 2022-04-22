@@ -14,7 +14,8 @@ img {
     height: 90px;
 }
 
-h1 {
+h1,
+div {
     width: 75%;
     margin: auto;
 }
