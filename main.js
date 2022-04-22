@@ -14,6 +14,7 @@ function masterFunction(json) {
   generateSelectMenu(json);
   generateMovieDescription(json);
   makeReview(json);
+  resetReviews();
   //generateSelectMenu();
 }
 console.log(`${BASE_URL}${PATH}${API_FORMAT}`);
@@ -41,6 +42,8 @@ function generateMovieDescription(json) {
 
     for (i = 0; i < json.length; i++) {
       if (selectTitle === json[i].id) {
+        console.log(selectTitle);
+        console.log(json[i].id);
         let movieDetails = document.getElementById('display-info');
 
         let h3MovieTitle = document.createElement('h3');
@@ -50,7 +53,11 @@ function generateMovieDescription(json) {
         let p2MovieDescription = document.createElement('p');
         p2MovieDescription = json[i].description;
 
-        movieDetails.append(h3MovieTitle, p1MovieRelease, p2MovieDescription);
+        movieDetails.append(
+          h3MovieTitle,
+          p1MovieRelease + ' ' + p2MovieDescription,
+        );
+
         let element = document.getElementById('display-info');
         let number = element.childNodes.length;
         console.log(number);
@@ -61,16 +68,41 @@ function generateMovieDescription(json) {
 }
 
 function makeReview(json) {
+  let dropSelectReview = document.getElementById('Selection');
+
   const form = document.getElementById('userReview');
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const userReview = event.target.review.value;
-    const reviewList = document.querySelector('ul');
-    const userReviewEntry = document.createElement('li');
-    userReviewEntry.textContent = userReview;
-    reviewList.append(userReviewEntry);
-    console.log(userReview);
-    event.target.review.value = '';
+    let selectTitleReview = dropSelectReview.value;
+    for (i = 0; i < json.length; i++) {
+      console.log(selectTitleReview);
+      console.log(json[i].id);
+      if (selectTitleReview === json[i].id) {
+        const userReview = event.target.review.value;
+        const reviewList = document.querySelector('ul');
+        const userReviewEntry = document.createElement('li');
+        userReviewEntry.textContent = `${json[i].title}:` + ` ` + userReview;
+        userReviewEntry.style.fontWeight = 'bold';
+
+        reviewList.append(userReviewEntry);
+        console.log(userReview);
+        event.target.review.value = '';
+      } else if (selectTitleReview === '') {
+        window.alert('Please select a movie first');
+        break;
+      }
+    }
+  });
+}
+function resetReviews() {
+  let resetReviews = document.getElementById('reset-reviews-form');
+  resetReviews.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const reviewNode = document.getElementById('reviewsList');
+    while (reviewNode.firstChild) {
+      reviewNode.removeChild(reviewNode.lastChild);
+    }
   });
 }
 
