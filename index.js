@@ -25,6 +25,7 @@ const movies = (movieArr) => {
     movieList.push(movie);
   }
   displayMovie(movieTitles, movieList);
+  submitReviewFunc(movieTitles, movieList);
 };
 
 const displayMovie = (movieTitles, movieList) => {
@@ -52,27 +53,58 @@ const displayMovie = (movieTitles, movieList) => {
       }
     }
     displayInfo.append(movieTitle, movieYear, movieDescription);
-    submitReviewFunc(movieName);
     showPeople(movieName, movieList);
+    // submitReviewFunc(movieName);
   });
 };
 
-const submitReviewFunc = (movieName) => {
+// const submitReviewFunc = (movieName) => {
+//   const submitReviewForm = document.querySelector("#submitReviewForm");
+//   const reviewsList = document.querySelector("#reviewsList");
+//   const review = document.querySelector("#review");
+//   const resetReviews = document.querySelector("#reset-reviews");
+
+//   submitReviewForm.addEventListener("submit", (e) => {
+//     e.preventDefault();
+
+//     const li = document.createElement("li");
+//     const reviewText = document.createElement("p");
+//     reviewText.innerHTML = `<strong>${movieName}</strong>:`;
+//     li.textContent = review.value;
+
+//     reviewsList.append(reviewText, li);
+
+//     submitReviewForm.reset();
+//   });
+
+//   resetReviews.addEventListener("click", (e) => {
+//     e.preventDefault();
+
+//     reviewsList.innerHTML = "";
+//   });
+// };
+
+const submitReviewFunc = (movieTitles, movieList) => {
   const submitReviewForm = document.querySelector("#submitReviewForm");
-  const reviewsList = document.querySelector("#reviewsList");
   const review = document.querySelector("#review");
-  review.setAttribute("value", review.value);
+  const reviewsList = document.querySelector("#reviewsList");
   const resetReviews = document.querySelector("#reset-reviews");
+
+  let movieName = "";
+
+  movieTitles.addEventListener("change", () => {
+    movieName = movieTitles.options[movieTitles.selectedIndex].textContent;
+  });
 
   submitReviewForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const li = document.createElement("li");
-    let reviewText = `${movieName}: ${review.value}`;
-
-    li.append(reviewText);
-    reviewsList.append(li);
-    submitReviewForm.reset();
+    if (movieName) {
+      console.log(movieName);
+      submitReviewForm.reset();
+    } else {
+      alert("Please select a movie first");
+    }
   });
 
   resetReviews.addEventListener("click", (e) => {
@@ -82,7 +114,7 @@ const submitReviewFunc = (movieName) => {
   });
 };
 
-const showPeople = (movieName, movieList) => {
+function showPeople(movieName, movieList) {
   const peopleList = document.querySelector("#peopleList");
   const showPeopleBtn = document.querySelector("#show-people");
   let peopleArr = [];
@@ -117,4 +149,4 @@ const showPeople = (movieName, movieList) => {
       peopleArr = [];
     }
   });
-};
+}
