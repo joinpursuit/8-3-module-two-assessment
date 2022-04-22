@@ -1,4 +1,5 @@
 let select = document.querySelector('select')
+let dropdown = document.getElementById('title')
 let option = document.querySelector('option')
 let selectoption = document.querySelectorAll('option')
 let div = document.querySelector('div')
@@ -8,7 +9,9 @@ let form = document.querySelector('form')
 let text = document.querySelector("input[type ='text']")
 let ul = document.querySelector('ul')
 let button = document.getElementById('reset-reviews')
-let list = document.querySelectorAll('ul li')
+let list = document.querySelectorAll('li')
+
+console.log(select.value)
 
 let Base_Url = 'https://ghibliapi.herokuapp.com/'
 let film = 'films'
@@ -63,20 +66,24 @@ fetch(`${Base_Url}${film}`)
   })
   .catch((error) => console.log(error))
 
-// when submit a form accourding the the select title
-// it show the title and the text
+//alert when user start to input comment.window alert pop up
+// if there is no movie
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault()
+  event.preventDefault()
 
+  if (dropdown.value === '') {
+   alert("Please select movie first")
+  } else {
     let li = document.createElement('li')
     ul.append(li)
-  
+
     li.innerHTML = `<b>${h3.textContent}:</b> ${text.value}`
-    
-    form.reset();
+     form.reset()
+  }
+   
 })
 
 button.addEventListener('click', () => {
-   ul.remove(list)
-} )
+  ul.remove(list)
+})
