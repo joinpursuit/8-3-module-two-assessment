@@ -1,4 +1,5 @@
 const BASE_URL = "https://ghibliapi.herokuapp.com/films";
+const PEOPLE_URL = "https://ghibliapi.herokuapp.com/people";
 
 fetch(BASE_URL)
   .then((response) => response.json())
@@ -10,12 +11,14 @@ fetch(BASE_URL)
   });
 
 const errors = (e) => {
-  console.log(e);
+  const main = document.querySelector("main");
+  main.prepend(e);
 };
 
 const movies = (movieArr) => {
   const movieTitles = document.querySelector("#titles");
   const movieList = [];
+  const peopleList = [];
 
   for (const movie of movieArr) {
     const option = document.createElement("option");
@@ -24,8 +27,21 @@ const movies = (movieArr) => {
     movieTitles.append(option);
     movieList.push(movie);
   }
+
+  fetch(PEOPLE_URL)
+    .then((res) => res.json())
+    .then((json) => {
+      for (const js of json) {
+        peopleList.push(js);
+      }
+      showPeople(movieTitles, peopleList);
+    })
+    .catch((e) => {
+      errors(e);
+    });
+
   displayMovie(movieTitles, movieList);
-  submitReviewFunc(movieTitles, movieList);
+  submitReviewFunc(movieTitles);
 };
 
 const displayMovie = (movieTitles, movieList) => {
@@ -34,11 +50,11 @@ const displayMovie = (movieTitles, movieList) => {
   const movieYear = document.createElement("p");
   const movieDescription = document.createElement("p");
   movieDescription.classList.add("movieDescription");
-  const peopleList = document.querySelector("#peopleList");
 
   movieTitles.addEventListener("change", () => {
     let movieName = movieTitles.options[movieTitles.selectedIndex].textContent;
-    peopleList.innerHTML = "";
+    const listOfPeople = document.querySelector("#listOfPeople");
+    listOfPeople.innerHTML = "";
 
     for (const movieInfo of movieList) {
       if (movieName === movieInfo.title) {
@@ -53,11 +69,10 @@ const displayMovie = (movieTitles, movieList) => {
       }
     }
     displayInfo.append(movieTitle, movieYear, movieDescription);
-    showPeople(movieName, movieList);
   });
 };
 
-const submitReviewFunc = (movieTitles, movieList) => {
+const submitReviewFunc = (movieTitles) => {
   const submitReviewForm = document.querySelector("#submitReviewForm");
   const review = document.querySelector("#review");
   const reviewsList = document.querySelector("#reviewsList");
@@ -74,9 +89,8 @@ const submitReviewFunc = (movieTitles, movieList) => {
 
     if (movieName) {
       const li = document.createElement("li");
-      console.log(movieName, review.value);
-
       li.innerHTML = `<strong>${movieName}:</strong> ${review.value}`;
+
       reviewsList.append(li);
       submitReviewForm.reset();
     } else {
@@ -91,39 +105,29 @@ const submitReviewFunc = (movieTitles, movieList) => {
   });
 };
 
-function showPeople(movieName, movieList) {
-  const peopleList = document.querySelector("#peopleList");
+const showPeople = (movieTitles, peopleList) => {
+  const listOfPeople = document.querySelector("#listOfPeople");
   const showPeopleBtn = document.querySelector("#show-people");
-  let peopleArr = [];
 
-  for (const movieInfo of movieList) {
-    if (movieName === movieInfo.title) {
-      for (const people of movieInfo.people) {
-        fetch(people)
-          .then((response) => response.json())
-          .then((json) => {
-            const { name } = json;
-            peopleArr.push(name);
-          })
-          .catch((e) => {
-            errors(e);
-          });
-      }
-    }
-  }
+  let movieID = null;
+
+  movieTitles.addEventListener("change", () => {
+    movieID = movieTitles.options[movieTitles.selectedIndex].value;
+  });
+
   showPeopleBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    if (peopleArr.length > 0) {
-      for (const person of peopleArr) {
-        const li = document.createElement("li");
-        li.append(person);
-        peopleList.append(li);
-        if (li.textContent === "undefined") {
-          peopleList.removeChild(li);
+    listOfPeople.innerHTML = "";
+
+    for (const person of peopleList) {
+      for (const filmID of person.films) {
+        if (filmID.includes(movieID)) {
+          const li = document.createElement("li");
+          li.textContent = person.name;
+          listOfPeople.append(li);
         }
       }
-      peopleArr = [];
     }
   });
-}
+};
