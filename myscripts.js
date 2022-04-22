@@ -88,7 +88,7 @@ form.addEventListener("submit", (event) => {
   if (!film.value) {
     alert("Please select a movie first");
   } else {
-    li.innerHTML = `<strong> ${film.value}: </strong> ${text.value}`;
+    li.innerHTML = `<strong>${film.value}:</strong>${text.value}`;
     text.value = "";
   }
 
