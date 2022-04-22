@@ -10,7 +10,7 @@ fetch(`https://ghibliapi.herokuapp.com/films`)
   .then((json) => {
     parse(json);
     info(json, selected);
-    review(json, input, selected);
+    reviewed(json, input, selected);
   })
   .catch((error) => console.log(error));
 // Event Listener on our drop down.
@@ -42,22 +42,22 @@ function info(file, selected) {
   let infoDes = document.createElement("p");
 
   let parent = document.createElement("div");
-  review.append(parent);
+  display.append(parent);
 
   infoName.innerHTML = file.title[0];
   infoYear.innerHTML = selected.release_date;
   infoDes.innerHTML = selected.description;
 
-  parent.append(infoName);
-  parent.append(infoYear);
-  parent.append(infoDes);
+  parent.appendChild(infoName);
+  parent.appendChild(infoYear);
+  parent.appendChild(infoDes);
 }
 function reviewed(file, input, selected) {
   let userReview = document.createElement("ul");
 
   let parent2 = document.createElement("div");
-  review.append(parent2);
+  review.appendChild(parent2);
 
   userReview.innerHTML = `<strong>${selected}:</strong> ${input} ${file.title}`;
-  parent2.append();
+  parent2.appendChild();
 }
