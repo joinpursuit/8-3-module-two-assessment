@@ -152,7 +152,7 @@ describe("Add reviews", () => {
       const actual = items[0].innerHTML;
 
       const titlePattern =
-        /.*(<strong>|<b>)My Neighbor Totoro(<\/strong>|<\/b>).*/g;
+        /.*(<strong>|<b>)My Neighbor Totoro.+(<\/strong>|<\/b>).*/g;
       const descriptionPattern =
         /This movie was great!  I loved the dance to grow the tree./g;
       expect(actual).to.match(titlePattern);
