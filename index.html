@@ -5,8 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
-    <script src="./index.js"></script>
+    <script defer src="./index.js"></script>
     <title>Ghibli Review App</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>Ghibli Review App</h1>
+      <img src="./images/ghibli-logo.png" alt="Ghibli logo" />
+    </header>
+
+    <main>
+      <section>
+        <h2>Select a movie</h2>
+        <select name="titles" id="titles">
+          <option value=""></option>
+        </select>
+      </section>
+
+      <section>
+        <h2>Add a review</h2>
+        <form id="submitReviewForm">
+          <label for="review" id="yourReview">Your review:</label>
+          <input type="text" id="review" />
+          <input type="submit" />
+        </form>
+      </section>
+
+      <section>
+        <h2>Movie details</h2>
+        <div id="display-info"></div>
+      </section>
+
+      <section>
+        <h2>Reviews</h2>
+        <ul id="reviewsList"></ul>
+        <button id="reset-reviews">Reset Reviews</button>
+      </section>
+
+      <section>
+        <h2>People</h2>
+        <ol id="peopleList"></ol>
+        <button id="show-people">Show People</button>
+      </section>
+    </main>
+  </body>
 </html>

@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: lavender;
+  font-family: monospace;
+  max-width: 1200px;
+  flex-wrap: wrap;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  background-color: skyblue;
+  height: 25vh;
+  width: 75%;
+}
+
+h1 {
+  align-self: flex-end;
+  margin: 0;
+}
+
+img {
+  width: 25%;
+  height: 25%;
+  position: absolute;
+  top: 0;
+}
+
+main {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+}
+
+#yourReview {
+  display: flex;
+  flex-direction: column;
+}
+
+.movieDescription {
+  width: 25vw;
+}
