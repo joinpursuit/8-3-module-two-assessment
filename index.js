@@ -85,7 +85,7 @@ const submitReviewFunc = (movieName) => {
 const showPeople = (movieName, movieList) => {
   const peopleList = document.querySelector("#peopleList");
   const showPeopleBtn = document.querySelector("#show-people");
-  const peopleArr = [];
+  let peopleArr = [];
 
   for (const movieInfo of movieList) {
     if (movieName === movieInfo.title) {
@@ -110,10 +110,11 @@ const showPeople = (movieName, movieList) => {
         const li = document.createElement("li");
         li.append(person);
         peopleList.append(li);
+        if (li.textContent === "undefined") {
+          peopleList.removeChild(li);
+        }
       }
-    } else {
-      let noPeople = "This film has no people.";
-      peopleList.append(noPeople);
+      peopleArr = [];
     }
   });
 };
