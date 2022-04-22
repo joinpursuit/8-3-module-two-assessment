@@ -14,34 +14,41 @@
         <h1>Ghibli Review App</h1>
     </header>
     <main>
+        <!-- Select a movie -->
         <section>
             <h2>Select a movie</h2>
             <select name="Select a movie" id="select">
                 <option value=""></option>
             </select>
-        </section>
-        <section>
-            <h2>Add a review</h2>
-            <form action="">
-                <label for="review"></label>
-                <input type="text" id="review">
-                <input type="submit">
-            </form>
-        </section>
-        <section>
-            <div id="display-info">
 
-            </div>
+            <!-- Add a review -->
+            <section class="input">
+                <h2>Add a review</h2>
+                <form action="">
+                    <label for="review"></label>
+                    <input id="review" type="text"/>
+                    <input type="submit"/>
+                </form>
+            </section>
+        </section>
+
+        <!-- Movie Description -->
+        <section>
+            <div id="display-info"></div>
             <h2>Movie details</h2>
         </section>
+
+        <!-- People -->
+        <section>
+            <h2></h2>
+            <button id="show-people">Show People</button>
+        </section>
+        
+        <!-- Reviews -->
         <section>
             <h2>Reviews</h2>
             <button id="reset-reviews">Reset Reviews</button>
             <ul></ul>
-        </section>
-        <section>
-            <h2></h2>
-            <button id="show-people">Show People</button>
         </section>
     </main>
 </body>
