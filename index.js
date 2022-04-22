@@ -54,35 +54,8 @@ const displayMovie = (movieTitles, movieList) => {
     }
     displayInfo.append(movieTitle, movieYear, movieDescription);
     showPeople(movieName, movieList);
-    // submitReviewFunc(movieName);
   });
 };
-
-// const submitReviewFunc = (movieName) => {
-//   const submitReviewForm = document.querySelector("#submitReviewForm");
-//   const reviewsList = document.querySelector("#reviewsList");
-//   const review = document.querySelector("#review");
-//   const resetReviews = document.querySelector("#reset-reviews");
-
-//   submitReviewForm.addEventListener("submit", (e) => {
-//     e.preventDefault();
-
-//     const li = document.createElement("li");
-//     const reviewText = document.createElement("p");
-//     reviewText.innerHTML = `<strong>${movieName}</strong>:`;
-//     li.textContent = review.value;
-
-//     reviewsList.append(reviewText, li);
-
-//     submitReviewForm.reset();
-//   });
-
-//   resetReviews.addEventListener("click", (e) => {
-//     e.preventDefault();
-
-//     reviewsList.innerHTML = "";
-//   });
-// };
 
 const submitReviewFunc = (movieTitles, movieList) => {
   const submitReviewForm = document.querySelector("#submitReviewForm");
@@ -100,7 +73,11 @@ const submitReviewFunc = (movieTitles, movieList) => {
     e.preventDefault();
 
     if (movieName) {
-      console.log(movieName);
+      const li = document.createElement("li");
+      console.log(movieName, review.value);
+
+      li.innerHTML = `<strong>${movieName}:</strong> ${review.value}`;
+      reviewsList.append(li);
       submitReviewForm.reset();
     } else {
       alert("Please select a movie first");
