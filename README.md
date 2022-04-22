@@ -8,32 +8,6 @@ A minium of 5 points must be attained in order to pass this assessment.
 
 You may receive partial credit (0.5 points) for code that is close to passing the tests, but does not pass all the tests.
 
-## Assessment Setup
-
-### Getting started
-
-1. Fork and clone this repository.
-
-1. Navigate to the cloned repository's directory on your command line. Then, run the following command:
-
-```
-npm install
-```
-
-This will install the libraries needed to run the tests.
-
-1. Open up the repository in VSCode. Follow the instructions below to complete the Lab.
-
-### Tests
-
-To run the tests, you can run the following command from the command line. You will need to be in the root directory of your local directory.
-
-```
-npm test
-```
-
-This will open the Cypress testing window, where you can click to run an individual suite of tests or all of the tests at once.
-
 ## Submitting
 
 To submit the assessment, you should do the following:
@@ -62,11 +36,6 @@ You will only need to make one API call in your application to receive all movie
 ![Example of the landing page.](./images/readme/ghibli-landing.png)
 
 While it does not need to look exactly the same, it should include the following:
-
-- [ ] `body`
-
-  - [ ] The page's background should be the color `lavender`.
-  - [ ] All non-input text should be of the font `monospace`.
 
 - `header`
 
