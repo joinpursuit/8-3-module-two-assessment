@@ -1,11 +1,12 @@
-let API_URL = 'https://ghibliapi.herokuapp.com/films/'; //API Link
-let CHAR_URL = 'https://ghibliapi.herokuapp.com/people/';
-let dropdown = document.getElementById('title');
-let display = document.getElementById('display-info');
+const API_URL = 'https://ghibliapi.herokuapp.com/films/'; //API Link
+const CHAR_URL = 'https://ghibliapi.herokuapp.com/people/';
+const dropdown = document.getElementById('title');
+const display = document.getElementById('display-info');
 let reviewForm = document.querySelector('form');
 let button = document.getElementById('show-people');
 let names = document.querySelector('ol');
 let ul = document.querySelector('ul');
+
 fetch(API_URL)
   .then((response) => response.json())
   .then((json) => {
@@ -16,9 +17,9 @@ fetch(API_URL)
     dropdown.append(option);
     dropdown.addEventListener('change', (event) => {
     event.preventDefault();
-    const identifaction = event.target.value;
+    const identification = event.target.value;
     for (let movie of json) {
-    if (identifaction === movie.id) {
+    if (identification === movie.id) {
         display.textContent = '';
         const h3 = document.createElement('h3');
         display.prepend(h3);
@@ -39,7 +40,7 @@ fetch(API_URL)
               people.innerHTML = '';
               for (let person of people) {
                 for (let film of person.films) {
-                  if (film === `${API_URL}${identifaction}`) {
+                  if (film === `${API_URL}${identification}`) {
                     let personList = document.createElement('li');
                     personList.textContent = person.name;
                     names.append(personList);
@@ -64,7 +65,7 @@ function getReviews(item) {
     } else {
       let movie = item.find((movie) => movie.id === dropdown.value);
       let li = document.createElement('li');
-      li.innerHTML = `<strong>${movie.title}:</strong>${input}`;
+      li.innerHTML = `<strong><b>${movie.title}:<b></strong>${input}`;
       ul.append(li);
     }
     reviewForm.reset();
