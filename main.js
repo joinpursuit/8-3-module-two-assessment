@@ -1,10 +1,9 @@
-//keep going jyoti!//
 
 const base_URL='https://ghibliapi.herokuapp.com/films/';
 let h3Title = document.querySelector("h3");
-let pYear = document.getElementById ("year");
-let pDesc = document.getElementById ("description");
-let movies = document.getElementById ("titles");
+let movieYear = document.getElementById ("year");
+let review = document.getElementById ("description");
+let title = document.getElementById ("titles");
 
 function getTitles(movies) {
     let title = new set ();
@@ -20,7 +19,7 @@ function getTitles(movies) {
 
         dropdown.append(option);
 
-        movies.addEvenListener('click',function () {
+        title.addEvenListener('click',function () {
             h3Title.innerHTML = getTitles.release_date;
         });
     }
@@ -31,4 +30,4 @@ fetch("https://ghibliapi.herokuapp.com/films/")
 .then ((json) => {
     getTitles(json);
 })
-.catch((error) => console.log(error));
+.catch((error) => console.log)
