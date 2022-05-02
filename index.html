@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="./stlye.css" />
     <script defer src="./main.js"></script>
     <title>Ghibli Review App</title>
@@ -24,16 +24,20 @@
         <form action="submit">
           <label for="review"> Add a Review</label>
           <input id="review" type="text" />
-          <input type="submit" Submit />
+          <input id= "review-submit" type="submit" Submit />
         </form>
       </section>
       <section>
         <h2>Movie details</h2>
-        <div id="display-info"></div>
+        <div id="display-info">
+          <h3 id="movie-title"></h3>
+          <p id="release-year"></p>
+          <p id="description"></p>
+        </div>
       </section>
       <section>
         <h2>People</h2>
-        <ol></ol>
+        <ol id="list-of-people"></ol>
         <button id="show-people">Show People</button>
       </section>
       <section>

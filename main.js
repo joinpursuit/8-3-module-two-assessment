@@ -1,77 +1,111 @@
-const movies_URL = "https://ghibliapi.herokuapp.com/films/";
-const ppl_URL = "https://ghibliapi.herokuapp.com/people/";
-const dropdownMenu = document.getElementById("movie-dropdown");
-const displayInfo = document.getElementById('display-info');
-const ul = document.querySelector('ul');
-const showPeople = document.getElementById('show-people');
-const form = document.querySelector('form');
+const films = "https://ghibliapi.herokuapp.com/films";
+const people = "https://ghibliapi.herokuapp.com/people";
+const dropdown = document.getElementById("dropdown-menu");
+const select = document.querySelector("submit");
 
-fetch(movies_URL)
-  .then((res) => res.json())
+// Movie Titles/Drop Down
+fetch(films)
+  .then((response) => response.json())
   .then((movies) => {
-      getMovieInfo(movies);
-reviewInfo (movies);
-  })
-  .catch((e) => {
-    console.log(e);
-  });
-
-const getMovieInfo = (movies) => {
-  movies.forEach((movie) => {
-    const option = document.createElement("option");
-    option.value = movie.id;
-    option.textContent = movie.title;
-    dropdownMenu.append(option);
-  });
-  dropdownMenu.addEventListener('change', (event) => {
-      const movieId= event.target.value;
-
-      for (let movie of movies){
-
-          if( movieId === movie.id){
-              info.textContent= '';
-              const h3 = document.createElement('h3');
-              displayInfo.prepend('h3');
-              h3.textContent = movie.title;
-              
-
-              const pOne = document.createElement('p');
-              info.append(pOne);
-              pOne.textContent = movie.release_date;
-
-
-              const p2 = document.createElement('p');
-              info.append(p2);
-          }
-        };
-    });
-
-}
-    //    function reviewInfo (people)  {
-    //         // people.forEach ((person) =>{
-    //             form.addEventListener('sumbit', (event) => {
-    //                 event.preventDefault();
-    //                const reviews = document.getElementById ('review').value;
-    //                if (dropdownMenu.value === ''){
-    //                    console.log('Select a Movie')
-    //                }else {
-    //                }
-                   
-        
-       
-    //    ;
+    for (let movie of movies) {
+      const option = document.createElement("option");
+      option.value = movie.id;
+      option.textContent = movie.title;
+      dropdown.append(option);
     
+    }
     
-                // ordered = document.createElement ('ol');
-                // ordered.textContent = person.name;
-                // ul.append(ordered)
   
+// Movie Info
+    fetch(films)
+    .then((response) => response.json())
+    .then((movies) => {
+    dropdown.addEventListener("change", (event) => { 
+      event.preventDefault();
+      const chosenMovie = event.target.value
+      
+      for (let movie of movies){
+      if (chosenMovie === movie.id) {
+       title = document.getElementById("movie-title");
+       year = document.getElementById("release-year");
+       description = document.getElementById("description");
+      
+        title.textContent = `Title : ${movie.title}`;
+        description.textContent = `Description : ${movie.description}`;
+        year.textContent = `Year Released : ${movie.release_date}`;
+      }
+    }
+    })
+  })
 
+  })
 
+      // })
+  
+    // Get People 
+const peopleButton = document.getElementById("show-people");
+peopleButton.addEventListener("click", (event) => {
+ 
+  fetch(people)
+    .then((response) => response.json())
+    .then((json) => {
+      for (let person of json) {
+        for (let films of person.films) {
+          const peopleList = document.getElementById("list-of-people");
+          const list = document.createElement("li");
+          let movieTitle = dropdown.value;
+          if (films.includes(movieTitle)) {
+            list.textContent = person.name;
+            peopleList.append(list);
+          }
+        }
+      }
+    })
+    .catch((error) => {
+      console.log("We have come into an error ");
+    });
+});
 
-    //    
+// })
+
+fetch(films)
+  .then((response) => response.json())
+  .then((movies) => {
+
+    // for (let movie of movies){
+const reviewForm = document.getElementById("review");
+const reviewSubmitButton = document.getElementById("review-submit")
+title = document.getElementById("movie-title");
+reviewSubmitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  const movie = movies.find((movie) => movie.id === dropdown.value);
+  const unordered = document.querySelector('ul')
+
+  const reviewList = document.createElement('li');
+  reviewList.setAttribute('id','addAReview')
+//  if (dropdown === movie.title)
+  reviewList.innerHTML = `<strong>${movie.title}</strong>: ${reviewForm.value} `
+  unordered.append(reviewList);
+  // reviewForm.reset();
+  // unordered.append(reviewList);
+
+})
     
 
+    
+  })
 
 
+// Reset Button
 
+const resetReviewButton = document.getElementById("reset-reviews");
+resetReviewButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  const clear = document.querySelector('ul')
+  clear.textContent = "";
+});
+
+// }
+// function addAReview(){
+
+// }
