@@ -1,9 +1,9 @@
--const films = "https://ghibliapi.herokuapp.com/films";
+const films = "https://ghibliapi.herokuapp.com/films";
 const people = "https://ghibliapi.herokuapp.com/people";
 const dropdown = document.getElementById("dropdown-menu");
 const select = document.querySelector("submit");
 
--fetch(films)
+fetch(films)
   .then((response) => response.json())
   .then((movies) => {
   for (let movie of movies) {
@@ -12,6 +12,7 @@ const select = document.querySelector("submit");
     option.textContent = movie.title;
     dropdown.append(option);
   }
+  
     
   
   // Movie Info
@@ -36,7 +37,36 @@ const select = document.querySelector("submit");
       })
     })
   })
+
+  // Get People
+  const peopleButton = document.getElementById("show-people");
+peopleButton.addEventListener("click", (event) => {
+ 
+  fetch(people)
+    .then((response) => response.json())
+    .then((json) => {
+      for (let person of json) {
+        for (let films of person.films) {
+          const peopleList = document.getElementById("list-of-people");
+          const list = document.createElement("li");
+          let movieTitle = dropdown.value;
+          if (films.includes(movieTitle)) {
+            list.textContent = person.name;
+            peopleList.append(list);
+          }
+        }
+      }
+    })
+    .catch((error) => {
+      console.log("We have come into an error ");
+    });
+  });
+
+
     //  Add A Review To Movie Title
+    fetch(films)
+  .then((response) => response.json())
+  .then((movies) => {
 const reviewForm = document.getElementById("review");
 const reviewSubmitButton = document.getElementById("review-submit")
 title = document.getElementById("movie-title");
@@ -50,12 +80,16 @@ reviewSubmitButton.addEventListener("click", (event) => {
 
   reviewList.innerHTML = `<strong>${movie.title}</strong>: ${reviewForm.value} `
   unordered.append(reviewList);
-})
 
+})
+  })
+
+
+  
 // Reset Button
 const resetReviewButton = document.getElementById("reset-reviews");
 resetReviewButton.addEventListener("click", (event) => {
   event.preventDefault();
-  const clear = document.querySelector('ul')
+  const clear = document.querySelector('ul');
   clear.textContent = "";
-});
+})
