@@ -78,7 +78,7 @@ reviewSubmitButton.addEventListener("click", (event) => {
   const reviewList = document.createElement('li');
   reviewList.setAttribute('id','addAReview')
 
-  reviewList.innerHTML = `<strong>${movie.title}</strong>: ${reviewForm.value} `
+  reviewList.innerHTML = `<strong>|<b>${movie.title}</strong>|<b>: ${reviewForm.value} `
   unordered.append(reviewList);
 
 })
@@ -91,5 +91,5 @@ const resetReviewButton = document.getElementById("reset-reviews");
 resetReviewButton.addEventListener("click", (event) => {
   event.preventDefault();
   const clear = document.querySelector('ul');
-  clear.textContent = "";
+  clear.remove()
 })
