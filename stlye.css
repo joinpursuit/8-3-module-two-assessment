@@ -1,0 +1,17 @@
+#head1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 75%;
+  background-color: skyblue;
+  height: 150spx;
+  align-self: center;
+}
+
+#body {
+  background-color: lavender;
+  font-family: monospace;
+}
+
+body img {
+  width: 150px;
+}
